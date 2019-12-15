@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import HomeContent from '../HomeContent';
+import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
 
 class Router extends Component {
@@ -17,6 +18,10 @@ class Router extends Component {
         <Switch>
           <Route path="/" exact>
             <HomeContent user={user} />
+          </Route>
+
+          <Route path="/posts" exact>
+            <PostListContent user={user} />
           </Route>
 
           <Route>
