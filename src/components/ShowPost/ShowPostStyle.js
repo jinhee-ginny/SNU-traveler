@@ -2,47 +2,90 @@ import React, { Component } from 'react';
 import moment from 'moment';
  
 import renderHTML from 'react-render-html';
-import {Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography} from '@material-ui/core/';
-import { withStyles } from '@material-ui/styles';
+import {IconButton, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
+import { makeStyles, withStyles} from '@material-ui/styles';
+import { red } from '@material-ui/core/colors'
+import {ExpandMoreIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
+import clsx from 'clsx';
 
 const styles = (theme) => ({
-    Paper: {
-        paddingTop: theme.spacing(4),
+    title:{
+        padding: '10px',
+    },
+    card:{
+        height:'100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    reply:{
+        display:'flex',
+        flexDirection:'column'
     }
 })
 
-const showPost = () => {
+
+
+const ShowPost = (props) => {
+    const {classes} = props;
     return(
         <React.Fragment>
             <main>
-                <div>
-                    <Container maxWidth={false}>
-                        <Typography component="h1" variant="h5">
-                            게시판 이름을 여기다 넣으면 좋을까요
-                        </Typography>
-                    </Container>
-                </div>
-                <Container>
-                    <Paper className="single_post"> 
-                        <Divider light/>
-                        <p><b>Title:</b> 여기에 제목</p>
-                        <Divider light />
-                        <p><b>Autor:</b></p>                               
-                        <Divider light />
-                        <p><b>Category:</b> 여기 아마 이제 뭐 음식, 관광지 이런 내요응ㄹ 넣으면 어떨까요</p>
-                        <Divider light />
-                        <p><b>Created At: </b></p>
-                        <Divider light />
-                    </Paper>
+                <Container align = "center" maxWidth={false}>
+                    <Typography component="h1" variant="h5">
+                        게시판 이름을 여기다 넣으면 좋을까요, 아님 아예 빼고 공백만 두는게 깔끔하려나
+                    </Typography>
                 </Container>
-                <Divider variant="middle"/>
-                <Container>
-                    <Paper> 여기가 나으려나 </Paper>
-                    <Button>댓글창 보기</Button>    
+                <Container className={classes.card}>
+                <Card align ='center'>
+                    <Paper>
+                        <CardHeader
+                            title = "정말 장소만 적는 제목이 여기 들어가고 e.g. 남산타워"
+                            subheader="한줄 정리 등이 들어가면 더 좋지 않으까요?"
+                        />
+                        <CardHeader align='right'
+                            subheader = "작성자, 날짜"
+                        />
+                        <CardMedia
+                            image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
+                            title = "Seoul"
+                        />
+                        <img src = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"/>                        
+                    </Paper>
+                    <Divider light/>
+                    <Paper>
+                        <CardContent align = 'left'>
+                            가나다라마바사 사랑한단 뜻이야
+                        </CardContent>
+                    </Paper>
+                    <CardContent>
+                        각종 태그들
+                    </CardContent>
+                </Card>
+                </Container>
+                <Container className={classes.reply}>
+                    <h4>댓글</h4>
+                    <Paper>
+                        <div>
+                        <span><b>이름:  </b></span>
+                        <span>내용 내용</span>
+                        <span style={{float:'right'}}>날짜</span>
+                        </div>
+                        <div>
+                        <span><b>이름:  </b></span>
+                        <span>내용 내용</span>
+                        <span style={{float:'right'}}>날짜</span>                      
+                        </div>
+                    </Paper>
+                    <Divider/>
+                    <FormControl fullWidth>
+                        <InputLabel htmlFor="component-simple">새 댓글등록</InputLabel>
+                        <p><Input></Input><Button variant="contained" color="primary">Submit</Button></p>
+                                    
+                    </FormControl>  
                 </Container>
             </main>
         </React.Fragment>
     )
 }
 
-export default withStyles(styles) (showPost);
+export default withStyles(styles) (ShowPost);
