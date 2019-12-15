@@ -7,6 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
   icon: {
@@ -16,14 +20,18 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2, 0, 2),
   },
-  heroButtons: {
-    marginTop: theme.spacing(4),
+  inputArea: {
+    paddingBottom: theme.spacing(4),
+  },
+  textInput: {
+    marginLeft: theme.spacing(4),
+    width: '90%',
   },
   cardGrid: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(8),
+    paddingBottom: theme.spacing(4),
   },
-  card: {
+  postCard: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -36,27 +44,27 @@ const styles = (theme) => ({
   },
 });
 
-// backend 연결 필요
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// Need to be connected with backend
+const postList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 const PostListContent = (props) => {
   const { classes } = props;
+  const { countryName } = props;
   return (
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
           <Container maxWidth={false}>
             <Typography component="h1" variant="h5" align="left" color="textPrimary">
-              서울 여행 게시판
+              {countryName} 여행 게시판
             </Typography>
           </Container>
         </div>
-
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map(card => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+            {postList.map(post => (
+              <Grid item key={post} xs={12} sm={6} md={4}>
+                <Card className={classes.postCard}>
                   <CardActionArea>
                     <CardMedia
                       className={classes.cardMedia}
@@ -65,7 +73,7 @@ const PostListContent = (props) => {
                     />
                     <CardContent className={classes.cardContent}>
                       <Typography component="h5" variant="overline">
-                        글 제목12121
+                        제목나온당
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -74,6 +82,12 @@ const PostListContent = (props) => {
             ))}
           </Grid>
         </Container>
+        <div className={classes.inputArea}>
+          <TextField className={classes.textInput} variant="outlined" />
+          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </div>
       </main>
     </React.Fragment>
   )
