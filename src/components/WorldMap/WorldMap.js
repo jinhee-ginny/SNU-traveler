@@ -17,7 +17,7 @@ const WorldMap = () => {
             <h1>Click your city</h1>
               <Container>
                   <div className>
-                    <Button variant="contained" color="primary"> Asia </Button>
+                    <Button variant="contained" color="primary" href="../posts"> Asia </Button>
                     <Button variant="contained" color="primary"> Europe </Button>
                     <Button variant="contained" color="primary"> Africa </Button>
                     <Button variant="contained" color="primary"> North America </Button>
