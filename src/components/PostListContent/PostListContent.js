@@ -12,6 +12,22 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+
+firebase.analytics();
+
+//connect to database
+const getPost = () => {
+  const dbRefObject = firebase.database().ref().child('postlist-seoul');
+  dbRefObject.on('value', snap => alert(snap.val()));
+}
+
+
+
 const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -72,7 +88,7 @@ const PostListContent = (props) => {
             {postList.map(post => (
               <Grid item key={post.id} xs={12} sm={6} md={3}>
                 <Card className={classes.postCard}>
-                  <CardActionArea>
+                  <CardActionArea onClick={()=>getPost()}>
                     <CardMedia
                       className={classes.cardMedia}
                       image={post.imageLink}
