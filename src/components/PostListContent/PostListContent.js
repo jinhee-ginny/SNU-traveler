@@ -44,11 +44,18 @@ const styles = (theme) => ({
   },
 });
 
-// Need to be connected with backend
-const postList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
 
 const PostListContent = (props) => {
   const { classes } = props;
+  // Need to be connected with backend
+  const postList =
+  [{id:1, title:"제목1", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
+  {id:2, title:"제목2", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
+  {id:3, title:"제목3", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
+  {id:4, title:"제목4", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
+  {id:5, title:"제목5", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
+  {id:6, title:"제목6", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"}];
   const { countryName } = props;
   return (
     <React.Fragment>
@@ -60,20 +67,20 @@ const PostListContent = (props) => {
             </Typography>
           </Container>
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid}>
           <Grid container spacing={4}>
             {postList.map(post => (
-              <Grid item key={post} xs={12} sm={6} md={4}>
+              <Grid item key={post.id} xs={12} sm={6} md={3}>
                 <Card className={classes.postCard}>
                   <CardActionArea>
                     <CardMedia
                       className={classes.cardMedia}
-                      image="https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"
+                      image={post.imageLink}
                       title="Image title"
                     />
                     <CardContent className={classes.cardContent}>
                       <Typography component="h5" variant="overline">
-                        제목나온당
+                        {post.title}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
