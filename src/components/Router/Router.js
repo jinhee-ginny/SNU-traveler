@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomeContent from '../HomeContent';
 import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
+import WorldMap from '../WorldMap'
 
 class Router extends Component {
   render() {
@@ -22,6 +23,10 @@ class Router extends Component {
 
           <Route path="/posts" exact>
             <PostListContent user={user} />
+          </Route>
+
+          <Route path="/worldmap" exact>
+            <WorldMap user={user}/>
           </Route>
 
           <Route>
