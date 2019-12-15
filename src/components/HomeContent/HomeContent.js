@@ -47,6 +47,8 @@ class HomeContent extends Component {
       <EmptyState
         title={process.env.REACT_APP_NAME}
         description="final project for SNU-web programming course"
+        button="Link to PostList"
+        buttonLink="/posts"
       />
     );
   }

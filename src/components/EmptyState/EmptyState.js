@@ -8,6 +8,8 @@ import Box from '@material-ui/core/Box';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 
+import { Link } from 'react-router-dom';
+
 const styles = (theme) => ({
   center: {
     position: 'absolute',
@@ -19,6 +21,10 @@ const styles = (theme) => ({
 
   icon: {
     fontSize: theme.spacing(12)
+  },
+
+  button: {
+    fontSize: theme.spacing(2),
   }
 });
 
@@ -70,7 +76,7 @@ class EmptyState extends Component {
     const { classes } = this.props;
 
     // Properties
-    const { icon, title, description, button } = this.props;
+    const { icon, title, description, button, buttonLink } = this.props;
 
     return (
       <div className={classes.center}>
@@ -95,8 +101,8 @@ class EmptyState extends Component {
         }
 
         {button &&
-          <Box>
-            {button}
+          <Box className={classes.button}>
+            <Link to={buttonLink}>{button}</Link>
           </Box>
         }
       </div>
