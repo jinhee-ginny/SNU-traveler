@@ -7,8 +7,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomeContent from '../HomeContent';
 import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
-import WorldMap from '../WorldMap'
+import renderToDom from '../WorldMap/newMap'
+
 import ShowPost from '../ShowPost/ShowPostStyle'
+import ShowMap from '../WorldMap'
 
 class Router extends Component {
   render() {
@@ -26,8 +28,8 @@ class Router extends Component {
             <PostListContent user={user} />
           </Route>
 
-          <Route path="/worldmap" exact>
-            <WorldMap user={user}/>
+          <Route path="/worldmap">
+            <ShowMap user={user}/>
           </Route>
 
           <Route path="/viewpost">
