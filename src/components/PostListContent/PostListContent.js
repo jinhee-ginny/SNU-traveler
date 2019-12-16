@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -25,8 +25,6 @@ const getPost = () => {
   const dbRefObject = firebase.database().ref().child('postlist-seoul');
   dbRefObject.on('value', snap => alert(snap.val()));
 }
-
-
 
 const styles = (theme) => ({
   icon: {
@@ -60,10 +58,10 @@ const styles = (theme) => ({
   },
 });
 
-
-
 const PostListContent = (props) => {
   const { classes } = props;
+  const [searchValue, setSearchValue] = useState('');
+  const [searchedPostList, setSearchedPostList] = useState('');
   // Need to be connected with backend
   const postList =
   [{id:1, title:"제목1", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
@@ -73,6 +71,14 @@ const PostListContent = (props) => {
   {id:5, title:"제목5", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
   {id:6, title:"제목6", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"}];
   const { countryName } = props;
+  const onChangeSearchValue = (e) => setSearchValue(e.target.value);
+  const onSearch = (e) => {
+    e.preventDefault();
+    const searchResult = postList.filter(post => post.title.indexOf(searchValue) !== -1);
+    setSearchedPostList(searchResult);
+    setSearchValue('');
+  }
+
   return (
     <React.Fragment>
       <main>
@@ -85,15 +91,26 @@ const PostListContent = (props) => {
         </div>
         <Container className={classes.cardGrid}>
           <Grid container spacing={4}>
-            {postList.map(post => (
+            {searchedPostList ?
+              searchedPostList.map(post => (
+                <Grid item key={post.id} xs={12} sm={6} md={3}>
+                  <Card className={classes.postCard}>
+                    <CardActionArea onClick={()=>getPost()}>
+                      <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
+                      <CardContent className={classes.cardContent}>
+                        <Typography component="h5" variant="overline">
+                          {post.title}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              ))
+              : postList.map(post => (
               <Grid item key={post.id} xs={12} sm={6} md={3}>
                 <Card className={classes.postCard}>
                   <CardActionArea onClick={()=>getPost()}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={post.imageLink}
-                      title="Image title"
-                    />
+                    <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
                     <CardContent className={classes.cardContent}>
                       <Typography component="h5" variant="overline">
                         {post.title}
@@ -105,12 +122,12 @@ const PostListContent = (props) => {
             ))}
           </Grid>
         </Container>
-        <div className={classes.inputArea}>
-          <TextField className={classes.textInput} variant="outlined" />
-          <IconButton type="submit" className={classes.iconButton} aria-label="search">
+        <form className={classes.inputArea} onSubmit={onSearch}>
+          <TextField className={classes.textInput} variant="outlined" value={searchValue} onChange={onChangeSearchValue}/>
+          <IconButton type="submit" className={classes.iconButton} aria-label="search" onSubmit={onSearch}>
             <SearchIcon />
           </IconButton>
-        </div>
+        </form>
       </main>
     </React.Fragment>
   )
