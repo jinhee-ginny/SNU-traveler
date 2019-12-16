@@ -7,10 +7,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomeContent from '../HomeContent';
 import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
-import renderToDom from '../WorldMap/newMap'
 
-import ShowPost from '../ShowPost/ShowPostStyle'
-import ShowMap from '../WorldMap'
+import ShowPost from '../ShowPost/ShowPostStyle';
+import ShowMap from '../WorldMap';
+import Mapbox from '../WorldMap2';
+
+
 
 class Router extends Component {
   render() {
@@ -34,6 +36,10 @@ class Router extends Component {
 
           <Route path="/viewpost">
             <ShowPost user={user}/>
+          </Route>
+
+          <Route path = "/newmap">
+            <Mapbox/>
           </Route>
 
           <Route>
