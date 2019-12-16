@@ -32,9 +32,9 @@ class HomeContent extends Component {
     const { classes } = this.props;
 
     // Properties
-    const { signedIn } = this.props;
+    const { user } = this.props;
 
-    if (signedIn) {
+    if (user) {
       return (
         <EmptyState
           icon={<HomeIcon className={classes.emptyStateIcon} color="action" />}
