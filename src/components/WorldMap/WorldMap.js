@@ -6,6 +6,21 @@ import {
   Geography
 } from "react-simple-maps";
 
+//여기서부터 getPost까지는 우영씨가 짠 파이어베이스코드인데, 일단 참고할려고 긁어옴.
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+
+firebase.analytics();
+
+//connect to database
+const getPost = () => {
+  const dbRefObject = firebase.database().ref().child('postlist-seoul');
+  dbRefObject.on('value', snap => alert(snap.val()));
+}
+
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
@@ -18,6 +33,7 @@ const rounded = num => {
     return Math.round(num / 100) / 10 + "K";
   }
 };
+
 
 const MapChart = ({ setTooltipContent }) => {
   return (
@@ -39,7 +55,7 @@ const MapChart = ({ setTooltipContent }) => {
                     setTooltipContent("");
                   }}
                   onClick={()=>{
-                    
+                    getPost() //일단 get post 한번 해봄
                   }}
                   style={{
                     default: {
