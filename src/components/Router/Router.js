@@ -8,6 +8,7 @@ import HomeContent from '../HomeContent';
 import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
 import WorldMap from '../WorldMap'
+import ShowPost from '../ShowPost/ShowPostStyle'
 
 class Router extends Component {
   render() {
@@ -27,6 +28,10 @@ class Router extends Component {
 
           <Route path="/worldmap" exact>
             <WorldMap user={user}/>
+          </Route>
+
+          <Route path="/viewpost">
+            <ShowPost user={user}/>
           </Route>
 
           <Route>
