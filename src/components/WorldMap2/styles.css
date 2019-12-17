@@ -1,0 +1,15 @@
+.navi-control {
+    position: fixed;
+    right: 0;
+}
+
+.btn-marker {
+    background: url('./red_pin.png') no-repeat center / contain;
+    width: 22px;
+    height: 35px;
+    border: none;
+}
+.btn-marker:focus {
+    outline: transparent;
+}
+

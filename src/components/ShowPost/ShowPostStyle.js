@@ -23,8 +23,6 @@ const styles = (theme) => ({
     }
 })
 
-
-
 const ShowPost = (props) => {
     const {classes} = props;
     return(
@@ -52,24 +50,25 @@ const ShowPost = (props) => {
                         <img src = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"/>                        
                     </Paper>
                     <Divider light/>
-                    <Paper>
-                        <CardContent align = 'left'>
-                            가나다라마바사 사랑한단 뜻이야
-                        </CardContent>
-                    </Paper>
-                    <CardContent>
-                        각종 태그들
+                    <CardContent align = 'left'>
+                        서울서울
+                    </CardContent>
+                    <Divider light/>
+                    <CardContent align = 'left'>
+                        <b>태그: </b> 여기다가 내용.
                     </CardContent>
                 </Card>
                 </Container>
                 <Container className={classes.reply}>
                     <h4>댓글</h4>
                     <Paper>
+                        <Divider light/>
                         <div>
                         <span><b>이름:  </b></span>
                         <span>내용 내용</span>
                         <span style={{float:'right'}}>날짜</span>
                         </div>
+                        <Divider light/>
                         <div>
                         <span><b>이름:  </b></span>
                         <span>내용 내용</span>
