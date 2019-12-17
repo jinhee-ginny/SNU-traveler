@@ -20,6 +20,7 @@
     "react-scripts": "3.3.0",
     "react-swipeable-views": "^0.13.1",
     "reading-time": "^1.1.3",
+    "surge": "^0.21.3",
     "sweetalert2": "^9.5.3",
     "typeface-roboto": "^0.0.75",
     "validate.js": "^0.13.1"
@@ -47,7 +48,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://phoqe.me/react-material-ui-firebase",
+  "homepage": "https://snu-traveler.surge.sh",
   "devDependencies": {
     "gh-pages": "^2.1.1"
   }

@@ -7,13 +7,8 @@ import { createMuiTheme, withStyles, MuiThemeProvider } from '@material-ui/core/
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import AppleIcon from 'mdi-material-ui/Apple';
-import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
 import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 import GoogleIcon from 'mdi-material-ui/Google';
-import MicrosoftIcon from 'mdi-material-ui/Microsoft';
-import TwitterIcon from 'mdi-material-ui/Twitter';
-import YahooIcon from 'mdi-material-ui/Yahoo';
 
 const styles = (theme) => ({
   grid: {
@@ -33,32 +28,6 @@ class AuthProviderList extends Component {
     const { onAuthProviderClick } = this.props;
 
     const authProviders = [
-      {
-        providerId: 'apple.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#000000',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <AppleIcon />,
-        name: 'Apple'
-      },
-      {
-        providerId: 'facebook.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#3c5a99',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <FacebookBoxIcon />,
-        name: 'Facebook'
-      },
       {
         providerId: 'github.com',
         theme: createMuiTheme({
@@ -84,45 +53,6 @@ class AuthProviderList extends Component {
         }),
         icon: <GoogleIcon />,
         name: 'Google'
-      },
-      {
-        providerId: 'microsoft.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#f65314',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <MicrosoftIcon />,
-        name: 'Microsoft'
-      },
-      {
-        providerId: 'twitter.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#1da1f2',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <TwitterIcon />,
-        name: 'Twitter'
-      },
-      {
-        providerId: 'yahoo.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#410093',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <YahooIcon />,
-        name: 'Yahoo'
       }
     ];
 
