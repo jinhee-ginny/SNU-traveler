@@ -134,7 +134,10 @@ const PostListContent = (props) => {
             {searchedPostList ?
               searchedPostList.map(post => (
                 <Grid item key={post.id} xs={12} sm={6} md={3}>
-                  <Card className={classes.postCard}>
+
+                  <Link to ="/viewpost">
+                  
+                  <Card  className={classes.postCard}>  
                     <CardActionArea onClick={()=>getPost()}>
                       <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
                       <CardContent className={classes.cardContent}>
@@ -144,10 +147,16 @@ const PostListContent = (props) => {
                       </CardContent>
                     </CardActionArea>
                   </Card>
+                  
+                  </Link>
+
                 </Grid>
               ))
               : postList.map(post => (
               <Grid item key={post.id} xs={12} sm={6} md={3}>
+                
+                <Link to ="/viewpost">
+                
                 <Card className={classes.postCard}>
                   <CardActionArea onClick={()=>getPost()}>
                     <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
@@ -158,6 +167,9 @@ const PostListContent = (props) => {
                     </CardContent>
                   </CardActionArea>
                 </Card>
+                
+                </Link>
+
               </Grid>
             ))}
           </Grid>
@@ -169,12 +181,9 @@ const PostListContent = (props) => {
           </IconButton>
         </form>
       </main>
+      
 
-      <EmptyState
-        //description="final project for SNU-web programming course"
-        button="write own post!!"
-        buttonLink="/writePost"
-      />
+      <Link to ="/writePost" fullWidth>글 작성하기</Link>
 
     </React.Fragment>
   )

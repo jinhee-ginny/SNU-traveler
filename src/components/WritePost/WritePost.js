@@ -93,10 +93,8 @@ const WritePost = (props) =>{
             글작성하기
         </Button>
         
-        <EmptyState
-        button="뒤로가기"
-        buttonLink="/posts"
-      />
+
+      <Link to ="/posts">뒤로가기</Link>
       
       </div>
     )
