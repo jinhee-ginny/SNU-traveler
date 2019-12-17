@@ -23,6 +23,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
+import 'firebase/functions';
 
 firebase.analytics();
 
@@ -41,6 +42,9 @@ const WritePost = (props) =>{
   const [text, setText] = useState(null);
 
   const sendPost = () => {
+
+
+    //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
     
     const updates = {};
@@ -50,12 +54,18 @@ const WritePost = (props) =>{
       text :`${text}`
     }
 
+    //save data to realtime database for post DB
+    const updates2 = {};
+
+    updates2['/users/post/' + newPostKey] = {
+      title : `${title}`,
+      text :`${text}`
+    }
+
     let submitText = document.getElementById("post-form");
     submitText.reset();
-    //updates['/user-posts/seoul/' + uid + '/' + newPostKey] = postData;
 
-    return firebase.database().ref().update(updates);
-    ///
+    return firebase.database().ref().update(updates)&&firebase.database().ref().update(updates2);
   }
 
 
