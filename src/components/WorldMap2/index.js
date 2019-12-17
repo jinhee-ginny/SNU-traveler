@@ -1,1 +1,1 @@
-export {default} from './newMap'
+export {default} from './MapContent'

@@ -19,12 +19,11 @@ const Mapbox = () => {
   const [ viewport, setViewport ] = useState({
     latitude: 37.532600,
     longitude: 127.024612,
-    width: '100%',
-    height: '100%',
+    width: '100vw',
+    height: '100vh',
     zoom: 2
   });
-  
-  
+
   useEffect(() => {
     const mapResizeEvent = throttle(() => {
     setViewport(Object.assign({}, {
@@ -44,20 +43,20 @@ const Mapbox = () => {
   return (        
     <div className="Mapbox">
       <div>
-          <Container maxWidth={false}>
+      <Container maxWidth={false}>
             <Typography component="h1" variant="h5" align="left" color="textPrimary">
             Click your city
             </Typography>
           </Container>
       </div>
-        <ReactMapGL
+      <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         onViewportChange={(viewport) => {
-        setViewport(viewport);
+          setViewport(viewport);
         }}
-        >
+      >
           
           <div className="navi-control">
             <NavigationControl/>

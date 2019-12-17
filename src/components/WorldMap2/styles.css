@@ -5,9 +5,10 @@
 
 .btn-marker {
     background: url('./red_pin.png') no-repeat center / contain;
-    width: 22px;
-    height: 35px;
+    width: 10px;
+    height: 20px;
     border: none;
+    position: absolute;
 }
 .btn-marker:focus {
     outline: transparent;

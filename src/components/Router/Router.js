@@ -12,6 +12,8 @@ import ShowPost from '../ShowPost/ShowPostStyle';
 import ShowMap from '../WorldMap';
 import Mapbox from '../WorldMap2';
 
+import MapContent from '../WorldMap2'
+
 
 
 class Router extends Component {
@@ -41,6 +43,10 @@ class Router extends Component {
           <Route path = "/newmap">
             <Mapbox/>
           </Route>
+
+          <Route path = "/mapcontent">
+            <MapContent user = {user}/>
+          </Route>          
 
           <Route>
             <NotFoundContent />
