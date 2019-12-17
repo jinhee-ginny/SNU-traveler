@@ -12,6 +12,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 
+//
+import EmptyState from '../EmptyState';
+//
+
 import  firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -129,6 +133,13 @@ const PostListContent = (props) => {
           </IconButton>
         </form>
       </main>
+
+      <EmptyState
+        //description="final project for SNU-web programming course"
+        button="write own post!!"
+        buttonLink="/writePost"
+      />
+      
     </React.Fragment>
   )
 }

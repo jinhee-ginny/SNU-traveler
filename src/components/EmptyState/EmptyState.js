@@ -76,7 +76,7 @@ class EmptyState extends Component {
     const { classes } = this.props;
 
     // Properties
-    const { icon, title, description, button, buttonLink } = this.props;
+    const { icon, title, description } = this.props;
 
     return (
       <div className={classes.center}>
@@ -97,12 +97,6 @@ class EmptyState extends Component {
         {description &&
           <Box mb={this.getMarginBottomForSection('description')}>
             <Typography color="textSecondary" variant="subtitle1">{description}</Typography>
-          </Box>
-        }
-
-        {button &&
-          <Box className={classes.button}>
-            <Link to={buttonLink}>{button}</Link>
           </Box>
         }
       </div>
