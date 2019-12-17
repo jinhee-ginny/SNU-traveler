@@ -24,6 +24,7 @@ const Mapbox = () => {
     zoom: 2
   });
   
+  
   useEffect(() => {
     const mapResizeEvent = throttle(() => {
     setViewport(Object.assign({}, {
