@@ -32,6 +32,12 @@ firebase.analytics();
 const getPost = () => {
   const dbRefObject = firebase.database().ref().child('postlist').child('seoul');
   dbRefObject.on('value', snap => alert(snap.val()));
+  
+  /*
+  return(
+    <ShowPost postKey={'12'}/>
+  )
+  */
 }
 
 const styles = (theme) => ({
@@ -182,8 +188,11 @@ const PostListContent = (props) => {
         </form>
       </main>
       
-
-      <Link to ="/writePost" fullWidth>글 작성하기</Link>
+      <Link to ="/writePost" fullWidth>
+        <Button fullWidth>
+            글 작성하기
+        </Button>
+        </Link>
 
     </React.Fragment>
   )

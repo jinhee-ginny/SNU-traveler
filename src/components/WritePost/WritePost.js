@@ -93,8 +93,11 @@ const WritePost = (props) =>{
             글작성하기
         </Button>
         
-
-      <Link to ="/posts">뒤로가기</Link>
+        <Link to ="/posts">
+          <Button fullWidth>
+            뒤로가기
+          </Button>
+        </Link>
       
       </div>
     )
