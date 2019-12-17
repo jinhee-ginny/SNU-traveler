@@ -9,10 +9,8 @@ import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
 
 import ShowPost from '../ShowPost/ShowPostStyle';
-import ShowMap from '../WorldMap';
-import Mapbox from '../WorldMap2';
 
-import MapContent from '../WorldMap2'
+import MapContent from '../WorldMap'
 import WritePost from '../WritePost';
 
 
@@ -37,16 +35,8 @@ class Router extends Component {
             <WritePost user={user}/>
           </Route>
 
-          <Route path="/worldmap">
-            <ShowMap user={user}/>
-          </Route>
-
           <Route path="/viewpost">
             <ShowPost user={user}/>
-          </Route>
-
-          <Route path = "/newmap">
-            <Mapbox/>
           </Route>
 
           <Route path = "/mapcontent">

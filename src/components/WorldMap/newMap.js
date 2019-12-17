@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import ReactMapGL, {Marker, Popup, NavigationControl, FlyToInterpolator} from 'react-map-gl';
+import ReactMapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './styles.css'
-import {Container, Typography} from '@material-ui/core'
+import {Container, Typography, Button} from '@material-ui/core'
 import {throttle} from 'lodash';
+//여기서부터 getPost까지는 우영씨가 짠 파이어베이스코드인데, 일단 참고할려고 긁어옴.
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+
+firebase.analytics();
+
+//connect to database
+const getPost = () => {
+  const dbRefObject = firebase.database().ref().child('postlist-seoul');
+  dbRefObject.on('value', snap => alert(snap.val()));
+}
 
 const cityList = [
   { name: 'New York', location: [40.7128, -74.0060] },
@@ -84,12 +98,11 @@ const Mapbox = () => {
                 onClose={() => setSelectedCity('')}
               >
                 <div>{selectedCity.name}{' '}|{' '}
-                  <a
-                    target ="_new"
-                    href = "../posts"
+                  <Button
+                    onClick = {()=>getPost()}
                   >
                     Posts
-                  </a>
+                  </Button>
                 </div>
                 <div>
                   <img width={240} src='https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg'></img>

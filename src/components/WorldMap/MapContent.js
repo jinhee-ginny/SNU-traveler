@@ -6,7 +6,7 @@ import EmptyMapbox from './emptyMap'
 
 
 
-class MainContent extends Component {
+class MapContent extends Component {
     render () {
         const { user } = this.props;
         if (user) {
@@ -22,4 +22,4 @@ class MainContent extends Component {
     }
 }
 
-export default MainContent;
+export default MapContent;

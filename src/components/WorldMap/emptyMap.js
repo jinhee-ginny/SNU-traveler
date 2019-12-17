@@ -7,15 +7,6 @@ import {throttle} from 'lodash';
 import SignInDialog from '../SignInDialog';
 import SignUpDialog from '../SignUpDialog';
 
-
-const cityList = [
-  { name: 'New York', location: [40.7128, -74.0060] },
-  { name: 'Beijing', location: [39.9042, 116.4074] },
-  { name: 'Paris', location: [48.8566, 2.3522] },
-  { name: 'Cairo', location: [30.0444, 31.2357] },
-  { name: 'Seoul', location: [37.5665, 126.9780] }
-];
-
 const EmptyMapbox = () => {
   
   const MAP_TOKEN = 'pk.eyJ1IjoiY2FzZS1raW0iLCJhIjoiY2s0OG85Nms1MDRjajNubXRka3l3NWsxNCJ9.JF7k8P3HwvDTMxyLE1hfjQ';
