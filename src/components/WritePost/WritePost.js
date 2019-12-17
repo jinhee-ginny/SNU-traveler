@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import { string } from 'prop-types'
 
 import { Link } from 'react-router-dom'
@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 
 //
+import Input  from '@material-ui/core/Input'
 import EmptyState from '../EmptyState';
 //
 
@@ -26,18 +27,7 @@ import 'firebase/database';
 firebase.analytics();
 
 //connect to database
-const sendPost = () => {
-  const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
-  
-  const updates = {};
-  updates['/postlist/seoul/' + newPostKey] = 'postData';
-  //updates['/user-posts/seoul/' + uid + '/' + newPostKey] = postData;
-  alert(newPostKey);
-  return firebase.database().ref().update(updates);
-  ///
-  const dbRefObject = firebase.database().ref().child('postlist').child('seoul').child('post1');
-  dbRefObject.on('value', snap => alert(snap.val()));
-}
+
 
 
 
@@ -45,15 +35,38 @@ const sendPost = () => {
 const styles = (theme) => ({});
 
 const WritePost = (props) =>{
+  console.log(props);
+  const [title, setTitle] = useState(null); 
+  const [text, setText] = useState(null);
+
+  const sendPost = () => {
+    const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
+    
+    const updates = {};
+
+    updates['/postlist/seoul/' + newPostKey] = {
+      title : `${title}`,
+      text :`${text}`
+    }
+
+    let submitText = document.getElementById("post-form");
+    submitText.reset();
+    //updates['/user-posts/seoul/' + uid + '/' + newPostKey] = postData;
+    alert(newPostKey);
+    return firebase.database().ref().update(updates);
+    ///
+  }
 
 
     return (
       <div>
-        <form style={{ padding: 24 }}>
+        <form id="post-form" style={{ padding: 24 }}>
           <Grid container spacing={24}>
             <Grid item xs={12}>
               <TextField
+                onChange={(e) => setTitle(e.target.value)}
                 fullWidth
+                id="travelTitle"
                 label="제목"
                 margin="normal"
                 required
@@ -61,7 +74,9 @@ const WritePost = (props) =>{
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={(e) => setText(e.target.value)}
                 fullWidth
+                id="travelText"
                 label="글"
                 margin="normal"
                 multiline
