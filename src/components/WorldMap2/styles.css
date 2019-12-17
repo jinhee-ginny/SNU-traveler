@@ -1,10 +1,10 @@
 .navi-control {
-    position: absolute;
+    position: fixed;
     right: 0;
 }
 
 .btn-marker {
-    background: url('./marker_red.png') no-repeat center / contain;
+    background: url('./red_pin.png') no-repeat center / contain;
     width: 22px;
     height: 35px;
     border: none;
@@ -12,3 +12,4 @@
 .btn-marker:focus {
     outline: transparent;
 }
+
