@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
  
 import renderHTML from 'react-render-html';
-import {IconButton, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
+import {IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
 import { makeStyles, withStyles} from '@material-ui/styles';
-import { red } from '@material-ui/core/colors'
-import {ExpandMoreIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
+import {ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
 import clsx from 'clsx';
+import LikeButton from './LikeButton';
 
 const styles = (theme) => ({
+    postHeader: {
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(2, 0, 2),
+    },
     title:{
         padding: '10px',
     },
@@ -20,44 +24,67 @@ const styles = (theme) => ({
     reply:{
         display:'flex',
         flexDirection:'column'
-    }
+    },
+    enterReply:{
+
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
 })
 
+class Reply extends Component {
+
+}
+
 const ShowPost = (props) => {
-    const {classes} = props;
+    const { classes } = props;
+    const [favorite, setFavorite] = useState(0);
+    const [newReply, setNewReply] = useState('')
+    const [replyList, setReplyLIst] = useState('')
+
+    const AddReply = (e) => {
+        e.preventdefault();
+        if(!newReply) {
+            return alert ("Type your reply!");
+        }
+    }
+
+    useEffect(() => {
+
+    })
+
     return(
         <React.Fragment>
-            <main>
-                <Container align = "center" maxWidth={false}>
-                    <Typography component="h1" variant="h5">
-                        게시판 이름을 여기다 넣으면 좋을까요, 아님 아예 빼고 공백만 두는게 깔끔하려나
-                    </Typography>
-                </Container>
+            <main style={{align: 'center'}}>
+            <Container maxWidth={false} className={classes.postHeader}>
+                <Typography component="h1" variant="h5" align="left" color="textPrimary">
+                    여행 게시판
+                </Typography>
+            </Container>
                 <Container className={classes.card}>
-                <Card align ='center'>
-                    <Paper>
-                        <CardHeader
-                            title = "정말 장소만 적는 제목이 여기 들어가고 e.g. 남산타워"
-                            subheader="한줄 정리 등이 들어가면 더 좋지 않으까요?"
-                        />
-                        <CardHeader align='right'
-                            subheader = "작성자, 날짜"
-                        />
-                        <CardMedia
-                            image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
-                            title = "Seoul"
-                        />
-                        <img src = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"/>                        
-                    </Paper>
-                    <Divider light/>
-                    <CardContent align = 'left'>
-                        서울서울
-                    </CardContent>
-                    <Divider light/>
-                    <CardContent align = 'left'>
-                        <b>태그: </b> 여기다가 내용.
-                    </CardContent>
-                </Card>
+                    <Card align ='center'>
+                        <Paper>
+                            <CardHeader
+                                title = "남산타워"
+                                subheader="작성자, 날짜"
+                            />
+                            <CardMedia
+                                className = {classes.media}
+                                image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
+                                title = "Seoul"
+                            />
+                        </Paper>
+                        <Divider light/>
+                        <CardContent align = 'left'>
+                            서울서울
+                        </CardContent>
+                        <Divider light/>
+                        <CardContent align = 'left'>
+                            <b>태그: </b> 여기다가 내용.
+                        </CardContent>
+                    </Card>
                 </Container>
                 <Container className={classes.reply}>
                     <h4>댓글</h4>
@@ -76,11 +103,15 @@ const ShowPost = (props) => {
                         </div>
                     </Paper>
                     <Divider/>
-                    <FormControl fullWidth>
-                        <InputLabel htmlFor="component-simple">새 댓글등록</InputLabel>
-                        <p><Input></Input><Button variant="contained" color="primary">Submit</Button></p>
-                                    
-                    </FormControl>  
+                    
+                </Container>
+                <Container>
+                    <form onSubmit={AddReply} align = 'center'>
+                    <p><TextField type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'91%'}}/>
+                    {'   '}
+                    <Button type = "submit" variant="contained" color="primary" style={{width:'8.5%'}}>등록</Button>
+                    </p>
+                </form>
                 </Container>
             </main>
         </React.Fragment>

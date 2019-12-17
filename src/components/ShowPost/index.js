@@ -1,1 +1,1 @@
-export { default } from './ShowPost';
+export { default } from './ShowPostStyles';

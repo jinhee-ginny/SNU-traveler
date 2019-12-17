@@ -25,7 +25,7 @@ const cityList = [
   { name: 'Paris', location: [48.8566, 2.3522] },
   { name: 'Cairo', location: [30.0444, 31.2357] },
   { name: 'Seoul', location: [37.5665, 126.9780] }
-];
+]; //지도 좌표는 이렇게 찍어봤는데 큰 지도에서는 오차가 좀 있더라고요. 어찌하면 좋을까요.
 
 const Mapbox = () => {
   
@@ -95,13 +95,20 @@ const Mapbox = () => {
                 offsetLeft={10}
                 latitude={selectedCity.location[0]}
                 longitude={selectedCity.location[1]}
-                onClose={() => setSelectedCity('')}
               >
-                <div>{selectedCity.name}{' '}|{' '}
+                <div><b>{selectedCity.name}</b>{' '}    |
                   <Button
-                    onClick = {()=>getPost()}
+                    color = "primary"
+                    href = "../posts" //여기서 각 포스트 게시판 별로 링크를 달아줄 수 있을까요.
                   >
                     Posts
+                  </Button>
+                  {' '}|
+                  <Button
+                    color = "primary"
+                    href = "../posts"
+                  >
+                    Chatting
                   </Button>
                 </div>
                 <div>
