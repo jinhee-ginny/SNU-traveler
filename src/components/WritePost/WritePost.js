@@ -35,7 +35,8 @@ firebase.analytics();
 const styles = (theme) => ({});
 
 const WritePost = (props) =>{
-  console.log(props);
+  //console.log(props);
+  
   const [title, setTitle] = useState(null); 
   const [text, setText] = useState(null);
 
@@ -52,7 +53,7 @@ const WritePost = (props) =>{
     let submitText = document.getElementById("post-form");
     submitText.reset();
     //updates['/user-posts/seoul/' + uid + '/' + newPostKey] = postData;
-    alert(newPostKey);
+
     return firebase.database().ref().update(updates);
     ///
   }

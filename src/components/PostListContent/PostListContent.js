@@ -21,12 +21,16 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
+import { Button } from '@material-ui/core';
+
+
+
 
 firebase.analytics();
 
 //connect to database
 const getPost = () => {
-  const dbRefObject = firebase.database().ref().child('postlist-seoul');
+  const dbRefObject = firebase.database().ref().child('postlist').child('seoul');
   dbRefObject.on('value', snap => alert(snap.val()));
 }
 
@@ -62,11 +66,20 @@ const styles = (theme) => ({
   },
 });
 
+
+
 const PostListContent = (props) => {
+
   const { classes } = props;
   const [searchValue, setSearchValue] = useState('');
   const [searchedPostList, setSearchedPostList] = useState('');
   // Need to be connected with backend
+  
+
+  const [postList, setPostList] = useState([]); 
+
+  
+  /*
   const postList =
   [{id:1, title:"제목1", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
   {id:2, title:"제목2", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
@@ -74,6 +87,26 @@ const PostListContent = (props) => {
   {id:4, title:"제목4", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
   {id:5, title:"제목5", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
   {id:6, title:"제목6", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"}];
+  */
+
+ useEffect(() => { 
+    setPostList([]);
+
+    const query = firebase.database().ref("postlist/seoul/");
+    query.once("value")
+      .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          postList.push(childSnapshot.val());
+      })
+
+      setPostList(postList);
+    })
+
+
+  }, []);
+
+
+
   const { countryName } = props;
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
@@ -84,6 +117,9 @@ const PostListContent = (props) => {
   }
 
   return (
+
+    
+    
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
@@ -139,7 +175,7 @@ const PostListContent = (props) => {
         button="write own post!!"
         buttonLink="/writePost"
       />
-      
+
     </React.Fragment>
   )
 }
