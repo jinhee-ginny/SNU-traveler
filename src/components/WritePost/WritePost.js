@@ -17,6 +17,29 @@ import EmptyState from '../EmptyState';
 //
 
 
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+
+firebase.analytics();
+
+//connect to database
+const sendPost = () => {
+  const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
+  
+  const updates = {};
+  updates['/postlist/seoul/' + newPostKey] = 'postData';
+  //updates['/user-posts/seoul/' + uid + '/' + newPostKey] = postData;
+  alert(newPostKey);
+  return firebase.database().ref().update(updates);
+  ///
+  const dbRefObject = firebase.database().ref().child('postlist').child('seoul').child('post1');
+  dbRefObject.on('value', snap => alert(snap.val()));
+}
+
+
 
 
 const styles = (theme) => ({});
@@ -31,7 +54,6 @@ const WritePost = (props) =>{
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="new-diary-name"
                 label="제목"
                 margin="normal"
                 required
@@ -40,7 +62,6 @@ const WritePost = (props) =>{
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="new-diary-description"
                 label="글"
                 margin="normal"
                 multiline
@@ -48,10 +69,11 @@ const WritePost = (props) =>{
                 rows={4}
                 rowsMax={100}
               />
+              
             </Grid>
           </Grid>
         </form>
-        <Button fullWidth>
+        <Button fullWidth onClick={()=>sendPost()}>
             글작성하기
         </Button>
         
