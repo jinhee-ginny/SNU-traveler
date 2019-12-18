@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import moment from 'moment';
  
 import renderHTML from 'react-render-html';
-import {Typhography, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel} from '@material-ui/core/';
+import {Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography} from '@material-ui/core/';
 import { withStyles } from '@material-ui/styles';
-import Reply from './AddReply.js'
 
 const styles = (theme) => ({
-    Paper: {
-        paddingTop: theme.spacing(4),
+    title:{
+        padding: '10px',
+    },
+    card:{
+        height:'100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    reply:{
+        display:'flex',
+        flexDirection:'column'
     }
 })
 
@@ -20,9 +28,9 @@ const showPost = (props) => {
             <main>
                 <div>
                     <Container maxWidth={false}>
-                        <Typhography component="h1" variant="h5">
+                        <Typography component="h1" variant="h5">
                             새 글 쓰기
-                        </Typhography>
+                        </Typography>
                     </Container>
                 </div>
                 <Container>
@@ -38,10 +46,7 @@ const showPost = (props) => {
                     <Paper>
                         <body>{renderHTML(body)}</body>
                     </Paper>
-
-                    <Button onClick = {this.Reply}>댓글창 보기</Button>
-
-                                       
+                    <Button onClick = {this.Reply}>댓글창 보기</Button>                       
                 </Container>
             </main>
         </React.Fragment>

@@ -27,7 +27,7 @@ const Reply = () => {
         .then((replys) => {
             console.log(replys);
             setReplyList(
-                replys.map((reply) => new PostReply(reply.userName, reply.context, reply.createdAT))
+                replys.map((reply) => new PostReply(reply.userName, reply.context, reply.createdAt))
             )
         })
     })
@@ -49,7 +49,7 @@ const Reply = () => {
                     .then((replys) => {
                         console.log(replys);
                         setReplyList(
-                            replys.map((message) => new PostReply(message.userName, message.message, message.))
+                            replys.map((message) => new PostReply(message.userName, message.context, message.createdAt))
                         )
                     })
                 /*}*/)

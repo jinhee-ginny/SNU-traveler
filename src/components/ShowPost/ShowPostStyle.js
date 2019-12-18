@@ -7,6 +7,12 @@ import { makeStyles, withStyles} from '@material-ui/styles';
 import {ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
 import clsx from 'clsx';
 import LikeButton from './LikeButton';
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+import {getPost, postKey} from '../PostListContent'
 
 const styles = (theme) => ({
     postHeader: {
@@ -35,14 +41,20 @@ const styles = (theme) => ({
 })
 
 class Reply extends Component {
-
 }
 
+//key를 다르게 받아서 가져올지, 
+
 const ShowPost = (props) => {
-    const { classes } = props;
+    const { classes, postKey } = props;
+    console.log(postKey);
     const [favorite, setFavorite] = useState(0);
     const [newReply, setNewReply] = useState('')
     const [replyList, setReplyLIst] = useState('')
+
+    const Like = (e) => {
+        
+    }
 
     const AddReply = (e) => {
         e.preventdefault();
@@ -63,11 +75,11 @@ const ShowPost = (props) => {
                     여행 게시판
                 </Typography>
             </Container>
-                <Container className={classes.card}>
+            <Container className={classes.card}>
                     <Card align ='center'>
                         <Paper>
                             <CardHeader
-                                title = "남산타워"
+                                title = {postKey.title}
                                 subheader="작성자, 날짜"
                             />
                             <CardMedia
@@ -81,13 +93,13 @@ const ShowPost = (props) => {
                             서울서울
                         </CardContent>
                         <Divider light/>
-                        <CardContent align = 'left'>
-                            <b>태그: </b> 여기다가 내용.
-                        </CardContent>
+                        <CardContent align = 'right'>
+                            <LikeButton onClick = {()=>setFavorite(favorite+1)}/>
+                        </CardContent>                        
                     </Card>
                 </Container>
-                <Container className={classes.reply}>
-                    <h4>댓글</h4>
+            <Container className={classes.reply}>
+                <h4>댓글</h4>
                     <Paper>
                         <Divider light/>
                         <div>
@@ -104,15 +116,15 @@ const ShowPost = (props) => {
                     </Paper>
                     <Divider/>
                     
-                </Container>
-                <Container>
-                    <form onSubmit={AddReply} align = 'center'>
+            </Container>
+            <Container>
+                <form onSubmit={AddReply} align = 'center'>
                     <p><TextField type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'91%'}}/>
                     {'   '}
                     <Button type = "submit" variant="contained" color="primary" style={{width:'8.5%'}}>등록</Button>
                     </p>
                 </form>
-                </Container>
+            </Container>
             </main>
         </React.Fragment>
     )

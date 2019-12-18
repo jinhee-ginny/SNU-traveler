@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
+import ShowPost from '../ShowPost/ShowPostStyle'
 
 //
 import EmptyState from '../EmptyState';
@@ -33,11 +34,11 @@ const getPost = () => {
   const dbRefObject = firebase.database().ref().child('postlist').child('seoul');
   dbRefObject.on('value', snap => alert(snap.val()));
   
-  /*
+  
   return(
     <ShowPost postKey={'12'}/>
   )
-  */
+  
 }
 
 const styles = (theme) => ({
