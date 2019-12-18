@@ -57,10 +57,10 @@ const Mapbox = () => {
     <div className="Mapbox">
       <div>
       <Container maxWidth={false}>
-            <Typography component="h1" variant="h5" align="left" color="textPrimary">
-            Click your city
-            </Typography>
-          </Container>
+        <Typography component="h1" variant="h5" align="center" color="textPrimary">
+        Click your tour country.
+        </Typography>
+      </Container>
       </div>
       <ReactMapGL
         {...viewport}
@@ -71,46 +71,46 @@ const Mapbox = () => {
         }}
       >
           
-          <div className="navi-control">
-            <NavigationControl/>
-          </div>
-          {
-            cityList.map((city, i) => (
-            <Marker
-              key={i}
-              latitude={city.location[0]}
-              longitude={city.location[1]}
+        <div className="navi-control">
+          <NavigationControl/>
+        </div>
+        {
+          cityList.map((city, i) => (
+          <Marker
+            key={i}
+            latitude={city.location[0]}
+            longitude={city.location[1]}
+          >
+          <button
+            className="btn-marker"
+            onClick = {() => setSelectedCity(city)}
+          />
+          </Marker>
+          ))
+        }
+        {
+          selectedCity && (
+            <Popup
+              offsetLeft={10}
+              latitude={selectedCity.location[0]}
+              longitude={selectedCity.location[1]}
             >
-            <button
-              className="btn-marker"
-              onClick = {() => setSelectedCity(city)}
-            />
-            </Marker>
-            ))
-          }
-          {
-            selectedCity && (
-              <Popup
-                offsetLeft={10}
-                latitude={selectedCity.location[0]}
-                longitude={selectedCity.location[1]}
-              >
-                <div><b>{selectedCity.name}</b>{' '}    |
-                  <Button
-                    color = "primary"
-                    href = {`../posts/${selectedCity.name}`} //여기서 각 포스트 게시판 별로 링크를 달아줄 수 있을까요.
-                  >
-                    Posts
-                  </Button>
-    
-                </div>
-                <div>
-                  <img width={240} src={selectedCity.picture}></img>
-                </div>
-              </Popup>
-            )
-          }
-        </ReactMapGL>
+              <div><b>{selectedCity.name}</b>{' '}    |
+                <Button
+                  color = "primary"
+                  href = {`../posts/${selectedCity.name}`} //여기서 각 포스트 게시판 별로 링크를 달아줄 수 있을까요.
+                >
+                  Posts
+                </Button>
+  
+              </div>
+              <div>
+                <img width={240} src={selectedCity.picture}></img>
+              </div>
+            </Popup>
+          )
+        }
+      </ReactMapGL>
     </div>
   );
 };
