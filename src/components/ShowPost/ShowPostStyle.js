@@ -7,6 +7,13 @@ import { makeStyles, withStyles} from '@material-ui/styles';
 import {ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
 import clsx from 'clsx';
 import LikeButton from './LikeButton';
+import  firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+import 'firebase/functions';
+
 
 const styles = (theme) => ({
     postHeader: {
@@ -39,6 +46,25 @@ class Reply extends Component {
 }
 
 const ShowPost = (props) => {
+
+
+    //////////////Get currentPostKey////////////
+    const [postKey, setPostKey]= useState('');
+
+    useEffect(() => {    
+        const query = firebase.database().ref().child('currentPost');
+        query.once("value")
+          .then(function(snapshot) {    
+          setPostKey(snapshot.val().key);
+        })    
+    }, []);
+
+    
+    console.log(postKey);
+    ///////////////////////////////////////////
+
+
+
     const { classes } = props;
     const [favorite, setFavorite] = useState(0);
     const [newReply, setNewReply] = useState('')
