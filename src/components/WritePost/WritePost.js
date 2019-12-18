@@ -1,21 +1,15 @@
 
 import React, { useState, useEffect, Component } from 'react'
-import { string } from 'prop-types'
 
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 
 
 import { withStyles } from '@material-ui/core/styles';
 
 
-//
-import Input  from '@material-ui/core/Input'
-import EmptyState from '../EmptyState';
-//
 
 
 import  firebase from 'firebase/app';
@@ -27,11 +21,6 @@ import 'firebase/functions';
 
 firebase.analytics();
 
-//connect to database
-
-
-
-
 
 const styles = (theme) => ({});
 
@@ -40,7 +29,6 @@ const WritePost = (props) =>{
   const [text, setText] = useState(null);
 
   const sendPost = () => {
-
 
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
@@ -61,7 +49,7 @@ const WritePost = (props) =>{
 
     //save data to realtime database for User DB
     const updates_userDB = {};
-    updates_userDB['/users/username/posts/' + newPostKey] = {
+    updates_userDB[`/users/${props.user.uid}/posts/` + newPostKey] = {
       title : `${title}`,
       text :`${text}`,
       key :`${newPostKey}`,
