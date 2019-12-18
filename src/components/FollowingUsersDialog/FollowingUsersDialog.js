@@ -23,7 +23,9 @@ class FollowingUsersDialog extends Component {
         <DialogTitle>MailBox</DialogTitle>
 
         {content}
-        {user.uid}
+        /* DB connection needed
+        {user.followingUsers}
+        */
       </Dialog>
     );
   }

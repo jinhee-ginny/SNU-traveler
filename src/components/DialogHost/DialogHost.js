@@ -41,6 +41,7 @@ class DialogHost extends Component {
             </>
           }
         </Hidden>
+
         <AboutDialog
           dialogProps={aboutDialog.dialogProps}
 

@@ -13,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import MailIcon from '@material-ui/icons/Mail';
+import FaceIcon from '@material-ui/icons/Face';
 import PersonIcon from '@material-ui/icons/Person';
 
 import authentication from '../../services/authentication';
@@ -101,7 +101,7 @@ class Bar extends Component {
     const {
       onSignUpClick,
       onSignInClick,
-      onMailboxClick
+      onFollowingUsersClick
     } = this.props;
 
     const { menu } = this.state;
@@ -115,8 +115,8 @@ class Bar extends Component {
 
           {user &&
             <>
-              <IconButton aria-label="inbox" color="inherit" disabled={performingAction} onClick={onMailboxClick}>
-                <MailIcon/>
+              <IconButton aria-label="followingUsers" color="inherit" disabled={performingAction} onClick={onFollowingUsersClick}>
+                <FaceIcon/>
               </IconButton>
               <IconButton color="inherit" disabled={performingAction} onClick={this.openMenu}>
                 {this.getAvatar()}

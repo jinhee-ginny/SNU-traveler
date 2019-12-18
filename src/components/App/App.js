@@ -237,7 +237,7 @@ class App extends Component {
 
                 onSignUpClick={() => this.openDialog('signUpDialog')}
                 onSignInClick={() => this.openDialog('signInDialog')}
-                onMailboxClick={() => this.openDialog('followingUsersDialog')}
+                onFollowingUsersClick={() => this.openDialog('followingUsersDialog')}
 
                 onAboutClick={() => this.openDialog('aboutDialog')}
                 onSettingsClick={() => this.openDialog('settingsDialog')}
@@ -358,8 +358,7 @@ class App extends Component {
                       },
 
                       props: {
-                        user: user,
-                        content: 'This is MailBox'
+                        user: user
                       }
                     },
                   }
