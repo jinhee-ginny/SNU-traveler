@@ -9,9 +9,6 @@ import TextField from '@material-ui/core/TextField'
 
 import { withStyles } from '@material-ui/core/styles';
 
-
-
-
 import  firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -25,14 +22,14 @@ firebase.analytics();
 const styles = (theme) => ({});
 
 const WritePost = (props) =>{
-  const [title, setTitle] = useState(null); 
+  const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
 
   const sendPost = () => {
 
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
-    
+
     const updates_postDB = {};
 
     updates_postDB['/postlist/seoul/' + newPostKey] = {
@@ -93,7 +90,7 @@ const WritePost = (props) =>{
                 rows={4}
                 rowsMax={100}
               />
-              
+
             </Grid>
           </Grid>
         </form>
@@ -107,10 +104,10 @@ const WritePost = (props) =>{
             뒤로가기
           </Button>
         </Link>
-      
+
       </div>
     )
-  
+
 }
 
 

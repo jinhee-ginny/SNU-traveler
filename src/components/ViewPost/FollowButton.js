@@ -9,14 +9,14 @@ class FollowButton extends Component {
         liked: false
       };
       this.handleClick = this.handleClick.bind(this);
-    } 
-    
+    }
+
     handleClick() {
       this.setState({
         liked: !this.state.liked
       });
     }
-    
+
     render() {
       const text = this.state.liked ? 'liked' : 'haven\'t liked';
       const label = this.state.liked ? 'Unfollow' : 'Follow'
@@ -28,5 +28,5 @@ class FollowButton extends Component {
       );
     }
   }
-  
+
 export default FollowButton;

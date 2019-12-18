@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
- 
+
 import renderHTML from 'react-render-html';
 import {IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
 import { makeStyles, withStyles} from '@material-ui/styles';
@@ -9,7 +9,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import clsx from 'clsx';
 import FollowButton from './FollowButton';
 import LikeButton from './LikeButton'
-import  firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -46,7 +46,7 @@ const styles = (theme) => ({
 class Reply extends Component {
 }
 
-//key를 다르게 받아서 가져올지, 
+//key를 다르게 받아서 가져올지,
 
 const ShowPost = (props) => {
 	console.log(props);
@@ -55,10 +55,10 @@ const ShowPost = (props) => {
 	//////////////Get currentPostKey////////////
 	const [postKey, setPostKey]= useState('');
 
-	useEffect(() => {    
+	useEffect(() => {
 			const query = firebase.database().ref().child('currentPost');
 			query.once("value")
-				.then(function(snapshot) {    
+				.then(function(snapshot) {
 				setPostKey(snapshot.val().key);
 
 				firebase.database().ref().child(`postlist`).child(`seoul`).child(`${snapshot.val().key}`).on("value", function(childSnap){
@@ -73,7 +73,7 @@ const ShowPost = (props) => {
 
 				})
 	}, []);
-	
+
 	//console.log(postKey);
 	///////////////////////////////////////////
 
@@ -109,9 +109,9 @@ const ShowPost = (props) => {
 			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).update({ like: `${childSnap.val().like=+1}`});
 			console.log(childSnap.val().like);
 		})
-			
+
 		document.getElementById('like-button').disabled = true;
-		
+
 	}
 
 
@@ -154,7 +154,7 @@ const ShowPost = (props) => {
 					<CardContent align = 'left'>
 							<pre>{textData}</pre>
 					</CardContent>
-					<Divider light/>                      
+					<Divider light/>
 				</Card>
 			</Container>
 			<Container className={classes.reply}>
@@ -170,10 +170,10 @@ const ShowPost = (props) => {
 					<div>
 					<span><b>이름:  </b></span>
 					<span>내용 내용</span>
-					<span style={{float:'right'}}>날짜</span>                      
+					<span style={{float:'right'}}>날짜</span>
 					</div>
 				</Paper>
-				<Divider/>							
+				<Divider/>
 			</Container>
 			<Container>
 					<form id="comment-form" onSubmit={AddReply} align = 'center'>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import Mapbox from './newMap';
-import EmptyMapbox from './emptyMap'
+import Mapbox from './Mapbox';
+import EmptyMapbox from './EmptyMapbox'
 
-// export {default} from './newMap'
+// export {default} from './Mapbox'
 
 
 
 class MapContent extends Component {
     render () {
         const { user } = this.props;
+        console.log(user)
         if (user) {
             return (
                 <Mapbox/>
