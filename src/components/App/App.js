@@ -54,7 +54,7 @@ class App extends Component {
         open: false
       },
 
-      mailboxDialog: {
+      followingUsersDialog: {
         open: false
       },
 
@@ -116,7 +116,7 @@ class App extends Component {
         open: false
       },
 
-      mailboxDialog: {
+      followingUsersDialog: {
         open: false
       }
     }, callback);
@@ -213,7 +213,7 @@ class App extends Component {
       settingsDialog,
       deleteAccountDialog,
       signOutDialog,
-      mailboxDialog,
+      followingUsersDialog,
     } = this.state;
 
     const { snackbar } = this.state;
@@ -237,7 +237,7 @@ class App extends Component {
 
                 onSignUpClick={() => this.openDialog('signUpDialog')}
                 onSignInClick={() => this.openDialog('signInDialog')}
-                onMailboxClick={() => this.openDialog('mailboxDialog')}
+                onMailboxClick={() => this.openDialog('followingUsersDialog')}
 
                 onAboutClick={() => this.openDialog('aboutDialog')}
                 onSettingsClick={() => this.openDialog('settingsDialog')}
@@ -350,16 +350,16 @@ class App extends Component {
                       }
                     },
 
-                    mailboxDialog: {
+                    followingUsersDialog: {
                       dialogProps: {
-                        open: mailboxDialog.open,
+                        open: followingUsersDialog.open,
 
-                        onClose: () => this.closeDialog('mailboxDialog')
+                        onClose: () => this.closeDialog('followingUsersDialog')
                       },
 
                       props: {
                         user: user,
-                        content: 'This is Mailbox'
+                        content: 'This is MailBox'
                       }
                     },
                   }
