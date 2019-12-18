@@ -9,23 +9,15 @@ class FollowingUsersDialog extends Component {
   render() {
     // Dialog Properties
     const { dialogProps } = this.props;
-
     const { user } = this.props;
-
-    // Custom Properties
-    const {
-      content,
-    } = this.props;
 
     return (
 
       <Dialog {...dialogProps}>
-        <DialogTitle>MailBox</DialogTitle>
+        <DialogTitle>You're Now Following...</DialogTitle>
 
-        {content}
-        /* DB connection needed
-        {user.followingUsers}
-        */
+        {user.follows}
+
       </Dialog>
     );
   }
@@ -34,9 +26,6 @@ class FollowingUsersDialog extends Component {
 FollowingUsersDialog.propTypes = {
   // Dialog Properties
   dialogProps: PropTypes.object.isRequired,
-
-  // Custom Properties
-  content: PropTypes.string,
 };
 
 export default FollowingUsersDialog;
