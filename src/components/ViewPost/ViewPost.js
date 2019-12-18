@@ -82,7 +82,6 @@ const ViewPost = (props) => {
 		});
 
 	  }, []);
-	//console.log(commentArray);
 
   const addComment = (e) =>{
 		e.preventDefault();

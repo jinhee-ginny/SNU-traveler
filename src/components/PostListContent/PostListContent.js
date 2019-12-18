@@ -13,10 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import ViewPost from '../ViewPost/ViewPostStyle'
 import SinglePost from '../SinglePost'
-
-//
 import EmptyState from '../EmptyState';
-//
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
