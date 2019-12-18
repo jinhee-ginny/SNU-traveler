@@ -49,6 +49,7 @@ class Reply extends Component {
 //key를 다르게 받아서 가져올지, 
 
 const ShowPost = (props) => {
+	console.log(props);
 
 
 	//////////////Get currentPostKey////////////
@@ -108,9 +109,9 @@ const ShowPost = (props) => {
 	}
 
 
-	const Follow = (e) => {
-		e.preventdefault();
-
+	const Follow = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`users`).child(`${props.user.uid}`).child(`follows`).update({ email: `${emailData}`});
 	}
 
 	useEffect(() => {
@@ -140,7 +141,7 @@ const ShowPost = (props) => {
 					<CardContent align = 'right'>
 						<ButtonGroup >
 							<Button id="like-button" onClick={()=>Like()}>Like</Button>
-							<FollowButton onClick={()=>Follow()}/>
+							<Button onClick={()=>Follow()}>Follow</Button>
 						</ButtonGroup>
 					</CardContent>
 					<Divider light/>
