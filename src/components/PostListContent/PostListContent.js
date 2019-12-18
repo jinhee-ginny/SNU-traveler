@@ -53,12 +53,31 @@ const PostListContent = (props) => {
   const { classes } = props;
   const { country } = props;
   const { user } = props;
-  const [searchValue, setSearchValue] = useState('');
-  const [searchedPostList, setSearchedPostList] = useState('');
-
   const [postList, setPostList] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [changedPostList, setChangedPostList] = useState('');
 
- useEffect(() => {
+  const onSort = (e, standard = 'title') => {
+    e.preventDefault();
+    const sortResult = []
+    const query = firebase.database().ref('postlist/seoul/');
+    query.orderByChild(standard)
+      .once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          sortResult.push(childSnapshot.val());
+      })
+      setChangedPostList(sortResult.reverse());
+    });
+  }
+  const onChangeSearchValue = (e) => setSearchValue(e.target.value);
+  const onSearch = (e) => {
+    e.preventDefault();
+    const searchResult = postList.filter(post => post.title.indexOf(searchValue) !== -1);
+    setChangedPostList(searchResult);
+    setSearchValue('');
+  }
+
+  useEffect(() => {
     setPostList([]);
 
     const query = firebase.database().ref("postlist/seoul/");
@@ -70,35 +89,31 @@ const PostListContent = (props) => {
 
       setPostList(postList);
     })
-
   }, []);
-
-  const onChangeSearchValue = (e) => setSearchValue(e.target.value);
-  const onSearch = (e) => {
-    e.preventDefault();
-    const searchResult = postList.filter(post => post.title.indexOf(searchValue) !== -1);
-    setSearchedPostList(searchResult);
-    setSearchValue('');
-  }
 
   return (
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
-          <Container maxWidth={false}>
+          <Container>
             <Typography component="h1" variant="h5" align="left" color="textPrimary">
               {country} 여행 게시판
             </Typography>
           </Container>
         </div>
+        <Container>
+          <Button variant="outlined" onClick={(e)=> onSort(e, 'title')}>제목순</Button>
+          <Button variant="outlined" onClick={(e)=> onSort(e, 'date')}>최신순</Button>
+          <Button variant="outlined" onClick={(e)=> onSort(e, 'like')}>추천순</Button>
+        </Container>
         <Container className={classes.cardGrid}>
           <Grid container spacing={4}>
-            {searchedPostList ?
-              searchedPostList.map(post => (
-                <SinglePost post={post} country={country} user={user} />
+            {changedPostList ?
+              changedPostList.map(post => (
+                <SinglePost key={post.key} post={post} country={country} user={user} />
               ))
               : postList.map(post => (
-                <SinglePost post={post} country={country} user={user}/>
+                <SinglePost key={post.key} post={post} country={country} user={user} />
             ))}
           </Grid>
         </Container>
@@ -110,8 +125,8 @@ const PostListContent = (props) => {
         </form>
       </main>
 
-      <Link to="/writePost" fullWidth>
-        <Button fullWidth>
+      <Link to="/writePost" fullwidth="true">
+        <Button fullwidth="true">
             글 작성하기
         </Button>
       </Link>
