@@ -51,14 +51,16 @@ const WritePost = (props) =>{
 
     updates_postDB['/postlist/seoul/' + newPostKey] = {
       title : `${title}`,
-      text :`${text}`
+      text :`${text}`,
+      key :`${newPostKey}`
     }
 
     //save data to realtime database for User DB
     const updates_userDB = {};
     updates_userDB['/users/username/posts/' + newPostKey] = {
       title : `${title}`,
-      text :`${text}`
+      text :`${text}`,
+      key :`${newPostKey}`
     }
 
     let submitText = document.getElementById("post-form");
