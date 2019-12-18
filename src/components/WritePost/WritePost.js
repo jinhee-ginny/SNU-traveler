@@ -52,13 +52,8 @@ const WritePost = (props) =>{
       text :`${text}`,
       key :`${newPostKey}`,
       userid : `${props.user.uid}`,
-<<<<<<< HEAD
       date : moment().valueOf(),
       like : 0,
-=======
-      date : Date(Date.now()).toString(),
-      like : {0: ' '},
->>>>>>> c5586ca3fea15f1a834f2ad94aaa8255b25e5773
       comment : null,
       useremail : `${props.user.email}`
     }

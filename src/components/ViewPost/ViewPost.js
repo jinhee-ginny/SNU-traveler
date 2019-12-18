@@ -54,6 +54,7 @@ const ViewPost = (props) => {
   const { country } = props.location.state;
   const [newReply, setNewReply] = useState('');
   const [replyList, setReplyLIst] = useState('');
+  const [commentArray, setCommentArray] = useState('');
 
 	const addReply = (e) => {
 			e.preventdefault();
@@ -65,7 +66,7 @@ const ViewPost = (props) => {
 	useEffect(() => {
 
 		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
-			setCommentArray(commentArray=>[]);			
+			setCommentArray(commentArray=>[]);
 			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
 		});
 	  }, []);
@@ -118,11 +119,7 @@ const ViewPost = (props) => {
   					/>
   					<CardContent align = 'right'>
   						<ButtonGroup >
-<<<<<<< HEAD
-  							<Button id="like-button" onClick={()=>like()}>Like</Button>
-=======
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
->>>>>>> c5586ca3fea15f1a834f2ad94aaa8255b25e5773
   							<Button onClick={()=>follow()}>Follow</Button>
   						</ButtonGroup>
   					</CardContent>
@@ -138,9 +135,9 @@ const ViewPost = (props) => {
   				<Paper id="comment-field">
 					{
 					commentArray.map(comment=>(
-						<div><span>{comment}</span></div>					
+						<div><span>{comment}</span></div>
 						)
-					 )	
+					 )
 					}
   				</Paper>
   				<Divider/>
@@ -149,11 +146,7 @@ const ViewPost = (props) => {
   					<form id="comment-form" align = 'center'>
   							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
   							{'   '}
-<<<<<<< HEAD
-  							<Button type="submit" onClick={(e)=>addComment(e)} variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
-=======
   							<Button onClick={(e)=>addComment(e)} type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
->>>>>>> c5586ca3fea15f1a834f2ad94aaa8255b25e5773
   							</p>
   					</form>
   			</Container>
