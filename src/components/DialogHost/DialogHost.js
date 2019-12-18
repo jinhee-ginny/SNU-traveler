@@ -10,6 +10,7 @@ import SignInDialog from '../SignInDialog';
 import SettingsDialog from '../SettingsDialog';
 import DeleteAccountDialog from '../DeleteAccountDialog';
 import AlertDialog from '../AlertDialog';
+import MailboxDialog from '../MailboxDialog'
 
 class DialogHost extends Component {
   render() {
@@ -25,9 +26,21 @@ class DialogHost extends Component {
     const settingsDialog = dialogs.settingsDialog;
     const deleteAccountDialog = dialogs.deleteAccountDialog;
     const signOutDialog = dialogs.signOutDialog;
+    const mailboxDialog = dialogs.mailboxDialog;
 
     return (
       <>
+        <Hidden xsDown>
+          {user &&
+            <>
+              <MailboxDialog
+                dialogProps={mailboxDialog.dialogProps}
+
+                {...mailboxDialog.props}
+              />
+            </>
+          }
+        </Hidden>
         <AboutDialog
           dialogProps={aboutDialog.dialogProps}
 
@@ -139,6 +152,8 @@ class DialogHost extends Component {
             </>
           }
         </Hidden>
+
+
       </>
     );
   }

@@ -54,6 +54,10 @@ class App extends Component {
         open: false
       },
 
+      mailboxDialog: {
+        open: false
+      },
+
       snackbar: {
         autoHideDuration: 0,
         message: '',
@@ -109,6 +113,10 @@ class App extends Component {
       },
 
       signOutDialog: {
+        open: false
+      },
+
+      mailboxDialog: {
         open: false
       }
     }, callback);
@@ -204,7 +212,8 @@ class App extends Component {
       signInDialog,
       settingsDialog,
       deleteAccountDialog,
-      signOutDialog
+      signOutDialog,
+      mailboxDialog,
     } = this.state;
 
     const { snackbar } = this.state;
@@ -228,6 +237,7 @@ class App extends Component {
 
                 onSignUpClick={() => this.openDialog('signUpDialog')}
                 onSignInClick={() => this.openDialog('signInDialog')}
+                onMailboxClick={() => this.openDialog('mailboxDialog')}
 
                 onAboutClick={() => this.openDialog('aboutDialog')}
                 onSettingsClick={() => this.openDialog('settingsDialog')}
@@ -338,7 +348,20 @@ class App extends Component {
                         dismissiveAction: <Button color="primary" onClick={() => this.closeDialog('signOutDialog')}>Cancel</Button>,
                         confirmingAction: <Button color="primary" disabled={performingAction} variant="contained" onClick={this.signOut}>Sign Out</Button>
                       }
-                    }
+                    },
+
+                    mailboxDialog: {
+                      dialogProps: {
+                        open: mailboxDialog.open,
+
+                        onClose: () => this.closeDialog('mailboxDialog')
+                      },
+
+                      props: {
+                        user: user,
+                        content: 'This is Mailbox'
+                      }
+                    },
                   }
                 }
               />

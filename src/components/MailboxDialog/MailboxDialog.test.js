@@ -2,13 +2,13 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import SimpleDialog from './SimpleDialog';
+import MailboxDialog from './MailboxDialog';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
 
   ReactDOM.render(
-    <SimpleDialog
+    <MailboxDialog
       dialogProps={
         {
           open: true,
