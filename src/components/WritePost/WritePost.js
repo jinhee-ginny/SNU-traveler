@@ -36,8 +36,6 @@ firebase.analytics();
 const styles = (theme) => ({});
 
 const WritePost = (props) =>{
-  //console.log(props);
-  
   const [title, setTitle] = useState(null); 
   const [text, setText] = useState(null);
 
@@ -52,7 +50,13 @@ const WritePost = (props) =>{
     updates_postDB['/postlist/seoul/' + newPostKey] = {
       title : `${title}`,
       text :`${text}`,
-      key :`${newPostKey}`
+      key :`${newPostKey}`,
+      userid : `${props.user.uid}`,
+      date : Date(Date.now()).toString(),
+      like : 0,
+      comment : null,
+      useremail : `${props.user.email}`
+
     }
 
     //save data to realtime database for User DB
@@ -60,7 +64,12 @@ const WritePost = (props) =>{
     updates_userDB['/users/username/posts/' + newPostKey] = {
       title : `${title}`,
       text :`${text}`,
-      key :`${newPostKey}`
+      key :`${newPostKey}`,
+      userid : `${props.user.uid}`,
+      date : Date(Date.now()).toString(),
+      like : 0,
+      comment : null,
+      useremail : `${props.user.email}`
     }
 
     let submitText = document.getElementById("post-form");
