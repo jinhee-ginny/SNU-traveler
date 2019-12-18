@@ -110,8 +110,8 @@ const ViewPost = (props) => {
   					/>
   					<CardContent align = 'right'>
   						<ButtonGroup >
-  							<Button id="like-button" >Like</Button>
-  							<Button >Follow</Button>
+  							<Button id="like-button" onClick={()=>like()}>Like</Button>
+  							<Button onClick={()=>follow()}>Follow</Button>
   						</ButtonGroup>
   					</CardContent>
   					<Divider light/>
@@ -143,7 +143,7 @@ const ViewPost = (props) => {
   					<form id="comment-form" align = 'center'>
   							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
   							{'   '}
-  							<Button type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
+  							<Button type="submit" onClick={(e)=>addComment(e)} variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
   							</p>
   					</form>
   			</Container>
