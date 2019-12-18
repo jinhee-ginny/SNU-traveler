@@ -1,10 +1,11 @@
 
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect, Component } from 'react';
+import moment from 'moment';
 
-import { Link } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -37,7 +38,7 @@ const WritePost = (props) =>{
       text :`${text}`,
       key :`${newPostKey}`,
       userid : `${props.user.uid}`,
-      date : Date(Date.now()).toString(),
+      date : moment().valueOf(),
       like : 0,
       comment : null,
       useremail : `${props.user.email}`
@@ -51,7 +52,7 @@ const WritePost = (props) =>{
       text :`${text}`,
       key :`${newPostKey}`,
       userid : `${props.user.uid}`,
-      date : Date(Date.now()).toString(),
+      date : moment().valueOf(),
       like : 0,
       comment : null,
       useremail : `${props.user.email}`
@@ -67,7 +68,7 @@ const WritePost = (props) =>{
     return (
       <div>
         <form id="post-form" style={{ padding: 24 }}>
-          <Grid container spacing={24}>
+          <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
                 onChange={(e) => setTitle(e.target.value)}
@@ -87,7 +88,7 @@ const WritePost = (props) =>{
                 margin="normal"
                 multiline
                 required
-                rows={4}
+                rows={20}
                 rowsMax={100}
               />
 

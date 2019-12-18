@@ -71,8 +71,8 @@ const ViewPost = (props) => {
   const like = () => {
 		//e.preventdefault();
 		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).on("value", function(childSnap){
-			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: `${childSnap.val().like=+1}`});
-			console.log(childSnap.val().like);
+			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
+      console.log(childSnap.val().like);
 		})
 
 		document.getElementById('like-button').disabled = true;
@@ -101,7 +101,7 @@ const ViewPost = (props) => {
   					<CardHeader
   						align = 'center'
   						title = {post.title}
-  						subheader={`작성자: ${post.useremail}, 작성시간: ${post.date}`}
+  						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
   					<CardMedia
   						className = {classes.media}
