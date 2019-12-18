@@ -27,8 +27,17 @@ class Router extends Component {
             <HomeContent user={user} />
           </Route>
 
-          <Route path="/posts" exact>
-            <PostListContent user={user} />
+          <Route path="/posts/Korea" exact>
+            <PostListContent country="Korea"/>
+          </Route>
+          <Route path="/posts/America" exact>
+            <PostListContent country="America"/>
+          </Route>
+          <Route path="/posts/China" exact>
+            <PostListContent country="China"/>
+          </Route>
+          <Route path="/posts/France" exact>
+            <PostListContent country="France"/>
           </Route>
 
           <Route path="/writePost" exact>
@@ -41,7 +50,7 @@ class Router extends Component {
 
           <Route path = "/mapcontent">
             <MapContent user = {user}/>
-          </Route>          
+          </Route>
 
           <Route>
             <NotFoundContent />
