@@ -96,7 +96,19 @@ const ShowPost = (props) => {
 			}
 	}
 
-	const Like = (e) => {
+	const Like = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).update({ like: `${childSnap.val().like=+1}`});
+			console.log(childSnap.val().like);
+		})
+			
+		document.getElementById('like-button').disabled = true;
+		
+	}
+
+
+	const Follow = (e) => {
 		e.preventdefault();
 
 	}
@@ -126,11 +138,14 @@ const ShowPost = (props) => {
 						title = "Seoul"
 					/>
 					<CardContent align = 'right'>
-					<ButtonGroup ><LikeButton/><FollowButton/></ButtonGroup>
+						<ButtonGroup >
+							<Button id="like-button" onClick={()=>Like()}>Like</Button>
+							<FollowButton onClick={()=>Follow()}/>
+						</ButtonGroup>
 					</CardContent>
 					<Divider light/>
 					<CardContent align = 'left'>
-							{textData}
+							<pre>{textData}</pre>
 					</CardContent>
 					<Divider light/>                      
 				</Card>
