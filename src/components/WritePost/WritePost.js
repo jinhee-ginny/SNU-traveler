@@ -64,6 +64,22 @@ const WritePost = (props) =>{
     return firebase.database().ref().update(updates_postDB)&&firebase.database().ref().update(updates_userDB);
   }
 
+      //uploadImage();
+  useEffect(() => {
+
+    document.getElementById("input").addEventListener('change', function(evt) {
+      let firstFile = evt.target.files[0] // upload the first file only
+      
+      var storageRef = firebase.storage().ref();
+
+      var mountainsRef = storageRef.child('image2.jpg');
+
+
+      mountainsRef.put(firstFile).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+      });
+  })
+	  }, []);
 
     return (
       <div>
@@ -105,6 +121,7 @@ const WritePost = (props) =>{
             뒤로가기
           </Button>
         </Link>
+        <input type="file" id="input"></input>
 
       </div>
     )

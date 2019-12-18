@@ -54,7 +54,7 @@ const ViewPost = (props) => {
   const { country } = props.location.state;
   const [newReply, setNewReply] = useState('');
   const [replyList, setReplyLIst] = useState('');
-  const [commentArray, setCommentArray] = useState('');
+  const [commentArray, setCommentArray] = useState([]);
 
 	const addReply = (e) => {
 			e.preventdefault();
