@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-// import './LikeStyle.css'
-import { Button } from '@material-ui/core'
+import React, {Component} from 'react';
+import {Button} from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class LikeButton extends Component {

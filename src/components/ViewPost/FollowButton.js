@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import './LikeStyle.css'
 import {Button} from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 

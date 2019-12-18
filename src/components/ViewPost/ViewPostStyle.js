@@ -48,7 +48,8 @@ class Reply extends Component {
 
 //key를 다르게 받아서 가져올지,
 
-const ViewPost = (props) => {
+const ShowPost = (props) => {
+	console.log(props);
 
 
 	//////////////Get currentPostKey////////////
@@ -59,16 +60,34 @@ const ViewPost = (props) => {
 			query.once("value")
 				.then(function(snapshot) {
 				setPostKey(snapshot.val().key);
-			})
+
+				firebase.database().ref().child(`postlist`).child(`seoul`).child(`${snapshot.val().key}`).on("value", function(childSnap){
+						//console.log(childSnap.val());
+						setTitleData(childSnap.val().title);
+						setTextData(childSnap.val().text);
+						setEmailData(childSnap.val().useremail);
+						setDateData(childSnap.val().date);
+						setLikeData(childSnap.val().like);
+				});
+
+
+				})
 	}, []);
 
-
-	console.log(postKey);
+	//console.log(postKey);
 	///////////////////////////////////////////
+
+
+	const [titleData, setTitleData] = useState('');
+	const [textData, setTextData] = useState('');
+	const [dateData, setDateData] = useState('');
+	const [likeData, setLikeData] = useState('');
+	const [emailData, setEmailData] = useState('');
+
 
 	const { classes } = props;
 	const [favorite, setFavorite] = useState(0);
-	const [newReply, setNewReply] = useState('')
+	const [newReply, setNewReply] = useState('');
 	const [replyList, setReplyLIst] = useState('')
 
 	const AddReply = (e) => {
@@ -78,9 +97,21 @@ const ViewPost = (props) => {
 			}
 	}
 
-	const Like = (e) => {
-		e.preventdefault();
+	const Like = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).update({ like: `${childSnap.val().like=+1}`});
+			console.log(childSnap.val().like);
+		})
 
+		document.getElementById('like-button').disabled = true;
+
+	}
+
+
+	const Follow = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`users`).child(`${props.user.uid}`).child(`follows`).update({ email: `${emailData}`});
 	}
 
 	useEffect(() => {
@@ -99,8 +130,8 @@ const ViewPost = (props) => {
 				<Card>
 					<CardHeader
 						align = 'center'
-						title = {postKey}
-						subheader="작성자, 날짜"
+						title = {titleData}
+						subheader={`작성자: ${emailData}, 작성시간: ${dateData}`}
 					/>
 					<CardMedia
 						className = {classes.media}
@@ -108,11 +139,14 @@ const ViewPost = (props) => {
 						title = "Seoul"
 					/>
 					<CardContent align = 'right'>
-					<ButtonGroup ><LikeButton/><FollowButton/></ButtonGroup>
+						<ButtonGroup >
+							<Button id="like-button" onClick={()=>Like()}>Like</Button>
+							<Button onClick={()=>Follow()}>Follow</Button>
+						</ButtonGroup>
 					</CardContent>
 					<Divider light/>
 					<CardContent align = 'left'>
-							{postKey.content} 내용 넣을 곳
+							<pre>{textData}</pre>
 					</CardContent>
 					<Divider light/>
 				</Card>
