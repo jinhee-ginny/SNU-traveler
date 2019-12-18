@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Mapbox from './newMap';
-import EmptyMapbox from './emptyMap'
+import Mapbox from './Mapbox';
+import EmptyMapbox from './EmptyMapbox'
 
-// export {default} from './newMap'
+// export {default} from './Mapbox'
 
 
 

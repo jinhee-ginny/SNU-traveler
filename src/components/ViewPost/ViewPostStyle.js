@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
- 
+
 import renderHTML from 'react-render-html';
 import {IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
 import { makeStyles, withStyles} from '@material-ui/styles';
@@ -9,7 +9,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import clsx from 'clsx';
 import FollowButton from './FollowButton';
 import LikeButton from './LikeButton'
-import  firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -46,23 +46,23 @@ const styles = (theme) => ({
 class Reply extends Component {
 }
 
-//key를 다르게 받아서 가져올지, 
+//key를 다르게 받아서 가져올지,
 
-const ShowPost = (props) => {
+const ViewPost = (props) => {
 
 
 	//////////////Get currentPostKey////////////
 	const [postKey, setPostKey]= useState('');
 
-	useEffect(() => {    
+	useEffect(() => {
 			const query = firebase.database().ref().child('currentPost');
 			query.once("value")
-				.then(function(snapshot) {    
+				.then(function(snapshot) {
 				setPostKey(snapshot.val().key);
-			})    
+			})
 	}, []);
 
-	
+
 	console.log(postKey);
 	///////////////////////////////////////////
 
@@ -114,7 +114,7 @@ const ShowPost = (props) => {
 					<CardContent align = 'left'>
 							{postKey.content} 내용 넣을 곳
 					</CardContent>
-					<Divider light/>                      
+					<Divider light/>
 				</Card>
 			</Container>
 			<Container className={classes.reply}>
@@ -130,10 +130,10 @@ const ShowPost = (props) => {
 					<div>
 					<span><b>이름:  </b></span>
 					<span>내용 내용</span>
-					<span style={{float:'right'}}>날짜</span>                      
+					<span style={{float:'right'}}>날짜</span>
 					</div>
 				</Paper>
-				<Divider/>							
+				<Divider/>
 			</Container>
 			<Container>
 					<form onSubmit={AddReply} align = 'center'>
@@ -148,4 +148,4 @@ const ShowPost = (props) => {
 	)
 }
 
-export default withStyles(styles) (ShowPost);
+export default withStyles(styles) (ViewPost);

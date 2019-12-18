@@ -1,18 +1,18 @@
 import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
- 
+
 import renderHTML from 'react-render-html';
-import {IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput} from '@material-ui/core/';
+import { IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
 import { makeStyles, withStyles} from '@material-ui/styles';
-import {ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
+import { ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon } from '@material-ui/icons/MoreVert'
 import clsx from 'clsx';
 import LikeButton from './LikeButton';
-import  firebase from 'firebase';
+import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
-import {getPost, postKey} from '../PostListContent'
+// import {getPost, postKey} from '../PostListContent'
 
 const styles = (theme) => ({
     postHeader: {
@@ -43,11 +43,12 @@ const styles = (theme) => ({
 class Reply extends Component {
 }
 
-//key를 다르게 받아서 가져올지, 
+//key를 다르게 받아서 가져올지,
 
-const ShowPost = (props) => {
-  const { classes, postKey } = props;
-  console.log(postKey);
+const ViewPost = (props) => {
+  const { classes } = props;
+  const { post } = props.location.state
+  console.log(post);
   const [favorite, setFavorite] = useState(0);
   const [newReply, setNewReply] = useState('')
   const [replyList, setReplyLIst] = useState('')
@@ -78,7 +79,7 @@ const ShowPost = (props) => {
         <Container className={classes.card}>
           <Card align ='center'>
             <CardHeader
-                title = "{postKey.title}"
+                title = {post.title}
                 subheader="작성자, 날짜"
             />
             <CardMedia
@@ -88,13 +89,13 @@ const ShowPost = (props) => {
             />
             <Divider light/>
             <CardContent align = 'left'>
-                서울서울
+                {post.text}
             </CardContent>
             <Divider light/>
             <CardContent align = 'right'>
-              {postKey.liked}
+              {post.liked}
               <LikeButton onClick = {()=>setFavorite(favorite+1)}/>
-            </CardContent>                        
+            </CardContent>
           </Card>
         </Container>
         <Container className={classes.reply}>
@@ -110,10 +111,10 @@ const ShowPost = (props) => {
                     <div>
                     <span><b>이름:  </b></span>
                     <span>내용 내용</span>
-                    <span style={{float:'right'}}>날짜</span>                      
+                    <span style={{float:'right'}}>날짜</span>
                     </div>
                 </Paper>
-                <Divider/>                  
+                <Divider/>
         </Container>
         <Container>
             <form onSubmit={AddReply} align = 'center'>
@@ -128,4 +129,4 @@ const ShowPost = (props) => {
 	)
 }
 
-export default withStyles(styles) (ShowPost);
+export default withStyles(styles) (ViewPost);
