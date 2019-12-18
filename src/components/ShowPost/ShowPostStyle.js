@@ -7,12 +7,13 @@ import { makeStyles, withStyles} from '@material-ui/styles';
 import {ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon} from '@material-ui/icons/MoreVert'
 import clsx from 'clsx';
 import LikeButton from './LikeButton';
-import  firebase from 'firebase';
+import  firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
-import {getPost, postKey} from '../PostListContent'
+import 'firebase/functions';
+
 
 const styles = (theme) => ({
     postHeader: {
@@ -46,15 +47,29 @@ class Reply extends Component {
 //key를 다르게 받아서 가져올지, 
 
 const ShowPost = (props) => {
-  const { classes, postKey } = props;
-  console.log(postKey);
-  const [favorite, setFavorite] = useState(0);
-  const [newReply, setNewReply] = useState('')
-  const [replyList, setReplyLIst] = useState('')
 
-	const Like = (e) => {
 
-	}
+    //////////////Get currentPostKey////////////
+    const [postKey, setPostKey]= useState('');
+
+    useEffect(() => {    
+        const query = firebase.database().ref().child('currentPost');
+        query.once("value")
+          .then(function(snapshot) {    
+          setPostKey(snapshot.val().key);
+        })    
+    }, []);
+
+    
+    console.log(postKey);
+    ///////////////////////////////////////////
+
+
+
+    const { classes } = props;
+    const [favorite, setFavorite] = useState(0);
+    const [newReply, setNewReply] = useState('')
+    const [replyList, setReplyLIst] = useState('')
 
 	const AddReply = (e) => {
 			e.preventdefault();
