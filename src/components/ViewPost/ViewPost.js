@@ -76,7 +76,6 @@ const ViewPost = (props) => {
 		const storageRef = firebase.storage().ref();
 		storageRef.child(`${post.key}.jpg`).getDownloadURL().then(function(url) {
 			const imageLink = url;
-			alert(url);
 			document.querySelector('img').src = imageLink;
 		}).catch(function(error) {
 

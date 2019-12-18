@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,6 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/database';
+import 'firebase/functions';
+
 
 const styles = (theme) => ({
   icon: {
@@ -32,6 +39,17 @@ const SinglePost = (props) => {
   const { user } = props;
   const { country } = props;
 
+  useEffect(() => {
+		const storageRef = firebase.storage().ref();
+		storageRef.child(`${post.key}.jpg`).getDownloadURL().then(function(url) {
+			const imageLink = url;
+			document.querySelector('img').src = imageLink;
+		}).catch(function(error) {
+
+		});
+
+	  }, []);
+
   return (
     <Grid item key={post.id} xs={12} sm={6} md={3}>
       <Link to={{
@@ -44,7 +62,7 @@ const SinglePost = (props) => {
       }}>
         <Card className={classes.postCard}>
           <CardActionArea>
-            <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
+            <img src="imageLink" height="225px" width="400px"/>
             <CardContent className={classes.cardContent}>
               <Typography component="h5" variant="overline">
                 {post.title}
