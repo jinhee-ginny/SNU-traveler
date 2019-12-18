@@ -100,11 +100,12 @@ const WritePost = (props) =>{
             </Grid>
           </Grid>
         </form>
-        <Button fullWidth onClick={()=>sendPost()}>
+        <Link to ="/mapcontent">
+          <Button fullWidth onClick={()=>sendPost()}>
             글작성하기
-        </Button>
-        
-        <Link to ="/posts">
+          </Button>
+        </Link>
+        <Link to ="/mapcontent">
           <Button fullWidth>
             뒤로가기
           </Button>
