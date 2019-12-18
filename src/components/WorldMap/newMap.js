@@ -20,7 +20,7 @@ const getPost = () => {
 }
 
 const cityList = [
-  { name: 'USA', location: [40.7128, -74.0060], picture: "https://image.freepik.com/free-photo/new-york-city-skyline_119101-67.jpg"},
+  { name: 'America', location: [40.7128, -74.0060], picture: "https://image.freepik.com/free-photo/new-york-city-skyline_119101-67.jpg"},
   { name: 'China', location: [39.9042, 116.4074], picture: "https://image.freepik.com/free-photo/water-famous-architecture-finance-shanghai-tower_1417-1120.jpg" },
   { name: 'France', location: [48.8566, 2.3522], picture: "https://image.freepik.com/free-photo/paris-eiffel-tower-skyline-aerial-france_79295-14918.jpg"},
   { name: 'Korea', location: [37.5665, 126.9780], picture: "https://image.freepik.com/free-photo/sunrise-bukchon-hanok-village-seoul_40171-5.jpg" }
