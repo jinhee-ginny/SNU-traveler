@@ -70,8 +70,20 @@ const ViewPost = (props) => {
 			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
 		});
 	  }, []);
+	
+	  //image upload from database
+	useEffect(() => {
+		const storageRef = firebase.storage().ref();
+		storageRef.child(`${post.key}.jpg`).getDownloadURL().then(function(url) {
+			const imageLink = url;
+			alert(url);
+			document.querySelector('img').src = imageLink;
+		}).catch(function(error) {
 
-	console.log(commentArray);
+		});
+
+	  }, []);
+	//console.log(commentArray);
 
   const addComment = (e) =>{
 		e.preventDefault();
@@ -112,11 +124,7 @@ const ViewPost = (props) => {
   						title = {post.title}
   						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
-  					<CardMedia
-  						className = {classes.media}
-  						image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
-  						title = "Seoul"
-  					/>
+					<img src="imageLink" height="450px" width="800px"/> 
   					<CardContent align = 'right'>
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>

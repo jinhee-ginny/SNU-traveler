@@ -25,9 +25,12 @@ const styles = (theme) => ({});
 const WritePost = (props) =>{
   const [title, setTitle] = useState(null);
   const [text, setText] = useState(null);
+  const [newKey, setNewKey] = useState('');
+  const [newFile, setNewFile] = useState(null);
+
 
   const sendPost = () => {
-
+    
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
 
@@ -57,9 +60,17 @@ const WritePost = (props) =>{
       comment : null,
       useremail : `${props.user.email}`
     }
-
+    setNewKey(newPostKey);
     let submitText = document.getElementById("post-form");
     submitText.reset();
+
+    //image upload
+    const storageRef = firebase.storage().ref();
+    const mountainsRef = storageRef.child(`${newPostKey}.jpg`);
+    mountainsRef.put(newFile).then(function(snapshot) {
+    console.log('Uploaded a blob or file!');
+    });
+
 
     return firebase.database().ref().update(updates_postDB)&&firebase.database().ref().update(updates_userDB);
   }
@@ -67,19 +78,10 @@ const WritePost = (props) =>{
       //uploadImage();
   useEffect(() => {
 
-    document.getElementById("input").addEventListener('change', function(evt) {
-      let firstFile = evt.target.files[0] // upload the first file only
-      
-      var storageRef = firebase.storage().ref();
-
-      var mountainsRef = storageRef.child('image2.jpg');
-
-
-      mountainsRef.put(firstFile).then(function(snapshot) {
-      console.log('Uploaded a blob or file!');
-      });
-  })
-	  }, []);
+    document.getElementById("input").addEventListener('change', function(evt) {      
+      setNewFile(evt.target.files[0])
+    })
+	}, []);
 
     return (
       <div>
