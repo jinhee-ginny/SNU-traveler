@@ -97,6 +97,12 @@ const ShowPost = (props) => {
 			}
 	}
 
+	const addComment = (e) =>{
+		e.preventDefault();
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
+		document.getElementById('comment-form').reset();;
+	}
+
 	const Like = () => {
 		//e.preventdefault();
 		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${postKey}`).on("value", function(childSnap){
@@ -115,7 +121,7 @@ const ShowPost = (props) => {
 	}
 
 	useEffect(() => {
-
+		firebase.database().ref().child(`users`).child(`${props.user.uid}`).child(`follows`).update({ email: `${emailData}`});
 	})
 
 	return(
@@ -170,10 +176,10 @@ const ShowPost = (props) => {
 				<Divider/>
 			</Container>
 			<Container>
-					<form onSubmit={AddReply} align = 'center'>
-							<p><TextField type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
+					<form id="comment-form" onSubmit={AddReply} align = 'center'>
+							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
 							{'   '}
-							<Button type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
+							<Button type = "submit" onClick={(e)=>addComment(e)} variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
 							</p>
 					</form>
 			</Container>
