@@ -11,20 +11,19 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import ShowPost from '../ShowPost/ShowPostStyle'
+import ViewPost from '../ViewPost/ViewPostStyle'
+import SinglePost from '../SinglePost'
 
 //
 import EmptyState from '../EmptyState';
 //
 
-import  firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
 import { Button } from '@material-ui/core';
-
-
 
 
 firebase.analytics();
@@ -33,7 +32,7 @@ firebase.analytics();
 const getPost = (key) => {
   firebase.database().ref().child('currentPost').set({
     key: `${key}`,
-  });  
+  });
 }
 
 const styles = (theme) => ({
@@ -55,17 +54,6 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
-  postCard: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
 });
 
 
@@ -73,10 +61,12 @@ const styles = (theme) => ({
 const PostListContent = (props) => {
 
   const { classes } = props;
+  const { country } = props;
+  const { match } = props;
+  console.log('hello');
+  console.log(match);
   const [searchValue, setSearchValue] = useState('');
   const [searchedPostList, setSearchedPostList] = useState('');
-  // Need to be connected with backend
-
 
   const [postList, setPostList] = useState([]);
 
@@ -97,7 +87,6 @@ const PostListContent = (props) => {
 
 
 
-  const { country } = props;
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
     e.preventDefault();
@@ -107,8 +96,6 @@ const PostListContent = (props) => {
   }
 
   return (
-
-
 
     <React.Fragment>
       <main>
@@ -123,44 +110,10 @@ const PostListContent = (props) => {
           <Grid container spacing={4}>
             {searchedPostList ?
               searchedPostList.map(post => (
-                <Grid item key={post.id} xs={12} sm={6} md={3}>
-
-                  <Link to ="/viewpost">
-
-                  <Card className={classes.postCard}>
-                    <CardActionArea onClick={()=>getPost(post.key)}>
-                      <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
-                      <CardContent className={classes.cardContent}>
-                        <Typography component="h5" variant="overline">
-                          {post.title}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-
-                  </Link>
-
-                </Grid>
+                <SinglePost post={post}/>
               ))
               : postList.map(post => (
-              <Grid item key={post.id} xs={12} sm={6} md={3}>
-
-                <Link to ="/viewpost">
-
-                <Card className={classes.postCard}>
-                  <CardActionArea onClick={()=>getPost(post.key)}>
-                    <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
-                    <CardContent className={classes.cardContent}>
-                      <Typography component="h5" variant="overline">
-                        {post.title}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-
-                </Link>
-
-              </Grid>
+                <SinglePost post={post}/>
             ))}
           </Grid>
         </Container>
@@ -172,11 +125,11 @@ const PostListContent = (props) => {
         </form>
       </main>
 
-      <Link to ="/writePost" fullWidth>
+      <Link to="/writePost" fullWidth>
         <Button fullWidth>
             글 작성하기
         </Button>
-        </Link>
+      </Link>
 
     </React.Fragment>
   )

@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 
 import PropTypes from 'prop-types';
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 import HomeContent from '../HomeContent';
 import PostListContent from '../PostListContent'
 import NotFoundContent from '../NotFoundContent';
 
-import ShowPost from '../ShowPost/ShowPostStyle';
+import ViewPost from '../ViewPost';
 
 import MapContent from '../WorldMap'
 import WritePost from '../WritePost';
@@ -20,40 +20,40 @@ class Router extends Component {
 
     return (
       <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
-        <Switch>
-          <Route path="/" exact>
-            <HomeContent user={user} />
-          </Route>
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <HomeContent user={user} />
+            </Route>
 
-          <Route path="/posts/Korea" exact>
-            <PostListContent country="Korea"/>
-          </Route>
-          <Route path="/posts/America" exact>
-            <PostListContent country="America"/>
-          </Route>
-          <Route path="/posts/China" exact>
-            <PostListContent country="China"/>
-          </Route>
-          <Route path="/posts/France" exact>
-            <PostListContent country="France"/>
-          </Route>
+            <Route path="/posts/Korea" exact render={() => (
+              <PostListContent country="Korea"/>
+            )} />
+            <Route path="/posts/America" exact render={() => (
+              <PostListContent country="America"/>
+            )} />
+            <Route path="/posts/China" exact render={() => (
+              <PostListContent country="China"/>
+            )} />
+            <Route path="/posts/France" exact render={() => (
+              <PostListContent country="France"/>
+            )} />
 
-          <Route path="/writePost" exact>
-            <WritePost user={user}/>
-          </Route>
+            <Route path="/writePost" exact render={() => (
+              <WritePost user={user}/>
+            )} />
 
-          <Route path="/viewpost">
-            <ShowPost user={user}/>
-          </Route>
+            <Route path="/viewpost" component={ViewPost} />
 
-          <Route path = "/mapcontent">
-            <MapContent user = {user}/>
-          </Route>
+            <Route path = "/mapcontent" render={() => (
+              <MapContent user = {user}/>
+            )} />
 
-          <Route>
-            <NotFoundContent />
-          </Route>
-        </Switch>
+            <Route>
+              <NotFoundContent />
+            </Route>
+          </Switch>
+        </main>
       </BrowserRouter>
     )
   }
