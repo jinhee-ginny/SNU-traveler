@@ -13,8 +13,6 @@ import ShowPost from '../ShowPost/ShowPostStyle';
 import MapContent from '../WorldMap'
 import WritePost from '../WritePost';
 
-
-
 class Router extends Component {
   render() {
     // Properties

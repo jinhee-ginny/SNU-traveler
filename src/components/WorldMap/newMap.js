@@ -20,11 +20,10 @@ const getPost = () => {
 }
 
 const cityList = [
-  { name: 'New York', location: [40.7128, -74.0060] },
-  { name: 'Beijing', location: [39.9042, 116.4074] },
-  { name: 'Paris', location: [48.8566, 2.3522] },
-  { name: 'Cairo', location: [30.0444, 31.2357] },
-  { name: 'Seoul', location: [37.5665, 126.9780] }
+  { name: 'America', location: [40.7128, -74.0060], picture: "https://image.freepik.com/free-photo/new-york-city-skyline_119101-67.jpg"},
+  { name: 'China', location: [39.9042, 116.4074], picture: "https://image.freepik.com/free-photo/water-famous-architecture-finance-shanghai-tower_1417-1120.jpg" },
+  { name: 'France', location: [48.8566, 2.3522], picture: "https://image.freepik.com/free-photo/paris-eiffel-tower-skyline-aerial-france_79295-14918.jpg"},
+  { name: 'Korea', location: [37.5665, 126.9780], picture: "https://image.freepik.com/free-photo/sunrise-bukchon-hanok-village-seoul_40171-5.jpg" }
 ]; //지도 좌표는 이렇게 찍어봤는데 큰 지도에서는 오차가 좀 있더라고요. 어찌하면 좋을까요.
 
 const Mapbox = () => {
@@ -99,20 +98,14 @@ const Mapbox = () => {
                 <div><b>{selectedCity.name}</b>{' '}    |
                   <Button
                     color = "primary"
-                    href = "../posts" //여기서 각 포스트 게시판 별로 링크를 달아줄 수 있을까요.
+                    href = {`../posts/${selectedCity.name}`} //여기서 각 포스트 게시판 별로 링크를 달아줄 수 있을까요.
                   >
                     Posts
                   </Button>
-                  {' '}|
-                  <Button
-                    color = "primary"
-                    href = "../posts"
-                  >
-                    Chatting
-                  </Button>
+    
                 </div>
                 <div>
-                  <img width={240} src='https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg'></img>
+                  <img width={240} src={selectedCity.picture}></img>
                 </div>
               </Popup>
             )

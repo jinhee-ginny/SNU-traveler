@@ -48,6 +48,7 @@ const EmptyMapbox = () => {
             onViewportChange={(viewport) => {
             setViewport(viewport);
             }}
+            onClick = {()=>alert("로그인해주세요.")}
         >          
           <div className="navi-control">
             <NavigationControl/>

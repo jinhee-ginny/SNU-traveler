@@ -1,21 +1,15 @@
 
 import React, { useState, useEffect, Component } from 'react'
-import { string } from 'prop-types'
 
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 
 
 import { withStyles } from '@material-ui/core/styles';
 
 
-//
-import Input  from '@material-ui/core/Input'
-import EmptyState from '../EmptyState';
-//
 
 
 import  firebase from 'firebase/app';
@@ -27,22 +21,14 @@ import 'firebase/functions';
 
 firebase.analytics();
 
-//connect to database
-
-
-
-
 
 const styles = (theme) => ({});
 
 const WritePost = (props) =>{
-  //console.log(props);
-  
   const [title, setTitle] = useState(null); 
   const [text, setText] = useState(null);
 
   const sendPost = () => {
-
 
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
@@ -51,14 +37,27 @@ const WritePost = (props) =>{
 
     updates_postDB['/postlist/seoul/' + newPostKey] = {
       title : `${title}`,
-      text :`${text}`
+      text :`${text}`,
+      key :`${newPostKey}`,
+      userid : `${props.user.uid}`,
+      date : Date(Date.now()).toString(),
+      like : 0,
+      comment : null,
+      useremail : `${props.user.email}`
+
     }
 
     //save data to realtime database for User DB
     const updates_userDB = {};
-    updates_userDB['/users/username/posts/' + newPostKey] = {
+    updates_userDB[`/users/${props.user.uid}/posts/` + newPostKey] = {
       title : `${title}`,
-      text :`${text}`
+      text :`${text}`,
+      key :`${newPostKey}`,
+      userid : `${props.user.uid}`,
+      date : Date(Date.now()).toString(),
+      like : 0,
+      comment : null,
+      useremail : `${props.user.email}`
     }
 
     let submitText = document.getElementById("post-form");
@@ -98,11 +97,12 @@ const WritePost = (props) =>{
             </Grid>
           </Grid>
         </form>
-        <Button fullWidth onClick={()=>sendPost()}>
+        <Link to ="/mapcontent">
+          <Button fullWidth onClick={()=>sendPost()}>
             글작성하기
-        </Button>
-        
-        <Link to ="/posts">
+          </Button>
+        </Link>
+        <Link to ="/mapcontent">
           <Button fullWidth>
             뒤로가기
           </Button>

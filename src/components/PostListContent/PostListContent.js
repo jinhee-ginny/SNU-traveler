@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
+import ShowPost from '../ShowPost/ShowPostStyle'
 
 //
 import EmptyState from '../EmptyState';
@@ -29,15 +30,10 @@ import { Button } from '@material-ui/core';
 firebase.analytics();
 
 //connect to database
-const getPost = () => {
-  const dbRefObject = firebase.database().ref().child('postlist').child('seoul');
-  dbRefObject.on('value', snap => alert(snap.val()));
-
-  /*
-  return(
-    <ShowPost postKey={'12'}/>
-  )
-  */
+const getPost = (key) => {
+  firebase.database().ref().child('currentPost').set({
+    key: `${key}`,
+  });  
 }
 
 const styles = (theme) => ({
@@ -132,7 +128,7 @@ const PostListContent = (props) => {
                   <Link to ="/viewpost">
 
                   <Card className={classes.postCard}>
-                    <CardActionArea onClick={()=>getPost()}>
+                    <CardActionArea onClick={()=>getPost(post.key)}>
                       <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
                       <CardContent className={classes.cardContent}>
                         <Typography component="h5" variant="overline">
@@ -152,7 +148,7 @@ const PostListContent = (props) => {
                 <Link to ="/viewpost">
 
                 <Card className={classes.postCard}>
-                  <CardActionArea onClick={()=>getPost()}>
+                  <CardActionArea onClick={()=>getPost(post.key)}>
                     <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
                     <CardContent className={classes.cardContent}>
                       <Typography component="h5" variant="overline">
