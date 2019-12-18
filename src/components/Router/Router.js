@@ -27,26 +27,26 @@ class Router extends Component {
             </Route>
 
             <Route path="/posts/Korea" exact render={() => (
-              <PostListContent country="Korea"/>
+              <PostListContent country="Korea" user={user} />
             )} />
             <Route path="/posts/America" exact render={() => (
-              <PostListContent country="America"/>
+              <PostListContent country="America" user={user} />
             )} />
             <Route path="/posts/China" exact render={() => (
-              <PostListContent country="China"/>
+              <PostListContent country="China" user={user} />
             )} />
             <Route path="/posts/France" exact render={() => (
-              <PostListContent country="France"/>
+              <PostListContent country="France" user={user} />
             )} />
 
             <Route path="/writePost" exact render={() => (
               <WritePost user={user}/>
             )} />
 
-            <Route path="/viewpost" component={ViewPost} />
+            <Route path="/viewpost" exact component={ViewPost} />
 
             <Route path = "/mapcontent" render={() => (
-              <MapContent user = {user}/>
+              <MapContent user={user}/>
             )} />
 
             <Route>

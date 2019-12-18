@@ -188,4 +188,4 @@ const ShowPost = (props) => {
 	)
 }
 
-export default withStyles(styles) (ViewPost);
+export default withStyles(styles) (ShowPost);

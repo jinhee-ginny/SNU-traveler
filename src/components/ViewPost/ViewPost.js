@@ -2,17 +2,21 @@ import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
 
 import renderHTML from 'react-render-html';
-import { IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
-import { makeStyles, withStyles} from '@material-ui/styles';
-import { ExpandMoreIcon, EditIcon, MoreVertIcon, FavoriteIcon, ShareIcon } from '@material-ui/icons/MoreVert'
+import { IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import AddCommentIcon from '@material-ui/icons/AddComment';
 import clsx from 'clsx';
+
+import FollowButton from './FollowButton';
 import LikeButton from './LikeButton';
-import firebase from 'firebase';
+
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
-// import {getPost, postKey} from '../PostListContent'
+import 'firebase/functions';
+
 
 const styles = (theme) => ({
     postHeader: {
@@ -43,90 +47,109 @@ const styles = (theme) => ({
 class Reply extends Component {
 }
 
-//key를 다르게 받아서 가져올지,
-
 const ViewPost = (props) => {
   const { classes } = props;
-  const { post } = props.location.state
-  console.log(post);
-  const [favorite, setFavorite] = useState(0);
-  const [newReply, setNewReply] = useState('')
-  const [replyList, setReplyLIst] = useState('')
+  const userUid = props.location.state.user;
+  const { post } = props.location.state;
+  const { country } = props.location.state;
+  const [newReply, setNewReply] = useState('');
+  const [replyList, setReplyLIst] = useState('');
 
-	const Like = (e) => {
-
-	}
-
-	const AddReply = (e) => {
+	const addReply = (e) => {
 			e.preventdefault();
 			if(!newReply) {
 					return alert ("Type your reply!");
 			}
 	}
 
-	useEffect(() => {
+  const addComment = (e) =>{
+		e.preventDefault();
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
+		document.getElementById('comment-form').reset();
+	}
 
+  const like = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: `${childSnap.val().like=+1}`});
+			console.log(childSnap.val().like);
+		})
+
+		document.getElementById('like-button').disabled = true;
+
+	}
+
+  const follow = () => {
+		//e.preventdefault();
+		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
+	}
+
+	useEffect(() => {
+		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
 	})
 
 	return(
-		<React.Fragment>
+    <React.Fragment>
 			<main style={{align: 'center'}}>
-        <Container maxWidth={false} className={classes.postHeader}>
-          <Typography component="h1" variant="h5" align="left" color="textPrimary">
-            여행 게시판
-          </Typography>
-        </Container>
-        <Container className={classes.card}>
-          <Card align ='center'>
-            <CardHeader
-                title = {post.title}
-                subheader="작성자, 날짜"
-            />
-            <CardMedia
-                className = {classes.media}
-                image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
-                title = "Seoul"
-            />
-            <Divider light/>
-            <CardContent align = 'left'>
-                {post.text}
-            </CardContent>
-            <Divider light/>
-            <CardContent align = 'right'>
-              {post.liked}
-              <LikeButton onClick = {()=>setFavorite(favorite+1)}/>
-            </CardContent>
-          </Card>
-        </Container>
-        <Container className={classes.reply}>
-            <h4>댓글</h4>
-                <Paper>
-                    <Divider light/>
-                    <div>
-                    <span><b>이름:  </b></span>
-                    <span>내용 내용</span>
-                    <span style={{float:'right'}}>날짜</span>
-                    </div>
-                    <Divider light/>
-                    <div>
-                    <span><b>이름:  </b></span>
-                    <span>내용 내용</span>
-                    <span style={{float:'right'}}>날짜</span>
-                    </div>
-                </Paper>
-                <Divider/>
-        </Container>
-        <Container>
-            <form onSubmit={AddReply} align = 'center'>
-                <p><TextField type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'91%'}}/>
-                {'   '}
-                <Button type = "submit" variant="contained" color="primary" style={{width:'8.5%'}}>등록</Button>
-                </p>
-            </form>
-        </Container>
+  			<Container maxWidth={false} className={classes.postHeader}>
+  				<Typography component="h1" variant="h5" align="left" color="textPrimary">
+  					{country} 여행 게시판
+  				</Typography>
+  			</Container>
+  			<Container className={classes.card}>
+  				<Card>
+  					<CardHeader
+  						align = 'center'
+  						title = {post.title}
+  						subheader={`작성자: ${post.useremail}, 작성시간: ${post.date}`}
+  					/>
+  					<CardMedia
+  						className = {classes.media}
+  						image = "https://image.freepik.com/free-photo/beautiful-architecture-building-cityscape-seoul-city_74190-3218.jpg"
+  						title = "Seoul"
+  					/>
+  					<CardContent align = 'right'>
+  						<ButtonGroup >
+  							<Button id="like-button" >Like</Button>
+  							<Button >Follow</Button>
+  						</ButtonGroup>
+  					</CardContent>
+  					<Divider light/>
+  					<CardContent align = 'left'>
+  							<pre>{post.text}</pre>
+  					</CardContent>
+  					<Divider light/>
+  				</Card>
+  			</Container>
+  			<Container className={classes.reply}>
+  				<h4>댓글</h4>
+  				<Paper>
+  					<Divider light/>
+  					<div>
+  					<span><b>이름:  </b></span>
+  					<span>내용 내용</span>
+  					<span style={{float:'right'}}>날짜</span>
+  					</div>
+  					<Divider light/>
+  					<div>
+  					<span><b>이름:  </b></span>
+  					<span>내용 내용</span>
+  					<span style={{float:'right'}}>날짜</span>
+  					</div>
+  				</Paper>
+  				<Divider/>
+  			</Container>
+  			<Container>
+  					<form id="comment-form" align = 'center'>
+  							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
+  							{'   '}
+  							<Button type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
+  							</p>
+  					</form>
+  			</Container>
 			</main>
 		</React.Fragment>
 	)
 }
 
-export default withStyles(styles) (ViewPost);
+export default withStyles(styles)(ViewPost);

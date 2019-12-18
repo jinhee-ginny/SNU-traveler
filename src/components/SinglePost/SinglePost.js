@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -6,20 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-
-import ViewPost from '../ViewPost';
-
-import firebase from 'firebase/app';
-import 'firebase/storage';
-import 'firebase/database';
-
-//connect to database
-// const getPost = (key) => {
-//   firebase.database().ref().child('currentPost').set({
-//     key: `${key}`,
-//   });
-// }
+import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
   icon: {
@@ -39,17 +26,21 @@ const styles = (theme) => ({
 });
 
 
-
 const SinglePost = (props) => {
   const { classes } = props;
   const { post } = props;
+  const { user } = props;
+  console.log(user.uid)
+  const { country } = props;
 
   return (
     <Grid item key={post.id} xs={12} sm={6} md={3}>
       <Link to={{
-        pathname: "/viewpost",
+        pathname: "/viewpost/",
         state: {
-          post: post
+          post: post,
+          user: user.uid,
+          country: country,
         }
       }}>
         <Card className={classes.postCard}>

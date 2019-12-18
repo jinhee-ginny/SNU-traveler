@@ -28,13 +28,6 @@ import { Button } from '@material-ui/core';
 
 firebase.analytics();
 
-//connect to database
-const getPost = (key) => {
-  firebase.database().ref().child('currentPost').set({
-    key: `${key}`,
-  });
-}
-
 const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -56,15 +49,10 @@ const styles = (theme) => ({
   },
 });
 
-
-
 const PostListContent = (props) => {
-
   const { classes } = props;
   const { country } = props;
-  const { match } = props;
-  console.log('hello');
-  console.log(match);
+  const { user } = props;
   const [searchValue, setSearchValue] = useState('');
   const [searchedPostList, setSearchedPostList] = useState('');
 
@@ -85,8 +73,6 @@ const PostListContent = (props) => {
 
   }, []);
 
-
-
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
     e.preventDefault();
@@ -96,7 +82,6 @@ const PostListContent = (props) => {
   }
 
   return (
-
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
@@ -110,10 +95,10 @@ const PostListContent = (props) => {
           <Grid container spacing={4}>
             {searchedPostList ?
               searchedPostList.map(post => (
-                <SinglePost post={post}/>
+                <SinglePost post={post} country={country} user={user} />
               ))
               : postList.map(post => (
-                <SinglePost post={post}/>
+                <SinglePost post={post} country={country} user={user}/>
             ))}
           </Grid>
         </Container>

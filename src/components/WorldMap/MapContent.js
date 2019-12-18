@@ -9,6 +9,7 @@ import EmptyMapbox from './EmptyMapbox'
 class MapContent extends Component {
     render () {
         const { user } = this.props;
+        console.log(user)
         if (user) {
             return (
                 <Mapbox/>
