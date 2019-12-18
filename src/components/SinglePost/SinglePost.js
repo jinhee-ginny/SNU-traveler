@@ -30,7 +30,6 @@ const SinglePost = (props) => {
   const { classes } = props;
   const { post } = props;
   const { user } = props;
-  console.log(user.uid)
   const { country } = props;
 
   return (
