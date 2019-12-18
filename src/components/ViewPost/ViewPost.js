@@ -62,6 +62,16 @@ const ViewPost = (props) => {
 			}
 	}
 
+	useEffect(() => {
+
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
+			setCommentArray(commentArray=>[]);			
+			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
+		});
+	  }, []);
+
+	console.log(commentArray);
+
   const addComment = (e) =>{
 		e.preventDefault();
 		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
@@ -69,7 +79,6 @@ const ViewPost = (props) => {
 	}
 
   const like = () => {
-		//e.preventdefault();
 		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).on("value", function(childSnap){
 			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: `${childSnap.val().like=+1}`});
 			console.log(childSnap.val().like);
@@ -80,7 +89,6 @@ const ViewPost = (props) => {
 	}
 
   const follow = () => {
-		//e.preventdefault();
 		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
 	}
 
@@ -110,8 +118,8 @@ const ViewPost = (props) => {
   					/>
   					<CardContent align = 'right'>
   						<ButtonGroup >
-  							<Button id="like-button" >Like</Button>
-  							<Button >Follow</Button>
+  							<Button onClick={()=>like()} id="like-button" >Like</Button>
+  							<Button onClick={()=>follow()}>Follow</Button>
   						</ButtonGroup>
   					</CardContent>
   					<Divider light/>
@@ -123,19 +131,13 @@ const ViewPost = (props) => {
   			</Container>
   			<Container className={classes.reply}>
   				<h4>댓글</h4>
-  				<Paper>
-  					<Divider light/>
-  					<div>
-  					<span><b>이름:  </b></span>
-  					<span>내용 내용</span>
-  					<span style={{float:'right'}}>날짜</span>
-  					</div>
-  					<Divider light/>
-  					<div>
-  					<span><b>이름:  </b></span>
-  					<span>내용 내용</span>
-  					<span style={{float:'right'}}>날짜</span>
-  					</div>
+  				<Paper id="comment-field">
+					{
+					commentArray.map(comment=>(
+						<div><span>{comment}</span></div>					
+						)
+					 )	
+					}
   				</Paper>
   				<Divider/>
   			</Container>
@@ -143,7 +145,7 @@ const ViewPost = (props) => {
   					<form id="comment-form" align = 'center'>
   							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
   							{'   '}
-  							<Button type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
+  							<Button onClick={(e)=>addComment(e)} type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
   							</p>
   					</form>
   			</Container>

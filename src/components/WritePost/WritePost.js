@@ -39,7 +39,7 @@ const WritePost = (props) =>{
       userid : `${props.user.uid}`,
       date : Date(Date.now()).toString(),
       like : 0,
-      comment : null,
+      comment : {0: ' '},
       useremail : `${props.user.email}`
 
     }
@@ -52,7 +52,7 @@ const WritePost = (props) =>{
       key :`${newPostKey}`,
       userid : `${props.user.uid}`,
       date : Date(Date.now()).toString(),
-      like : 0,
+      like : {0: ' '},
       comment : null,
       useremail : `${props.user.email}`
     }
