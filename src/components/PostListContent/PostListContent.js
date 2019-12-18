@@ -81,22 +81,11 @@ const PostListContent = (props) => {
   const [searchValue, setSearchValue] = useState('');
   const [searchedPostList, setSearchedPostList] = useState('');
   // Need to be connected with backend
-  
 
-  const [postList, setPostList] = useState([]); 
 
-  
-  /*
-  const postList =
-  [{id:1, title:"제목1", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
-  {id:2, title:"제목2", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
-  {id:3, title:"제목3", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
-  {id:4, title:"제목4", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"},
-  {id:5, title:"제목5", imageLink:"https://i.pinimg.com/originals/f3/e1/b8/f3e1b8019f160f88531d8af792716b4f.png"},
-  {id:6, title:"제목6", imageLink:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6w3kYS_RibexdVur0op-t-E22ecIZGCoVEP4ELEM9OI2nctlDg&s"}];
-  */
+  const [postList, setPostList] = useState([]);
 
- useEffect(() => { 
+ useEffect(() => {
     setPostList([]);
 
     const query = firebase.database().ref("postlist/seoul/");
@@ -109,12 +98,11 @@ const PostListContent = (props) => {
       setPostList(postList);
     })
 
-
   }, []);
 
 
 
-  const { countryName } = props;
+  const { country } = props;
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
     e.preventDefault();
@@ -125,14 +113,14 @@ const PostListContent = (props) => {
 
   return (
 
-    
-    
+
+
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
           <Container maxWidth={false}>
             <Typography component="h1" variant="h5" align="left" color="textPrimary">
-              {countryName} 여행 게시판
+              {country} 여행 게시판
             </Typography>
           </Container>
         </div>
@@ -143,8 +131,8 @@ const PostListContent = (props) => {
                 <Grid item key={post.id} xs={12} sm={6} md={3}>
 
                   <Link to ="/viewpost">
-                  
-                  <Card  className={classes.postCard}>  
+
+                  <Card className={classes.postCard}>
                     <CardActionArea onClick={()=>getPost()}>
                       <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
                       <CardContent className={classes.cardContent}>
@@ -154,16 +142,16 @@ const PostListContent = (props) => {
                       </CardContent>
                     </CardActionArea>
                   </Card>
-                  
+
                   </Link>
 
                 </Grid>
               ))
               : postList.map(post => (
               <Grid item key={post.id} xs={12} sm={6} md={3}>
-                
+
                 <Link to ="/viewpost">
-                
+
                 <Card className={classes.postCard}>
                   <CardActionArea onClick={()=>getPost()}>
                     <CardMedia className={classes.cardMedia} image={post.imageLink} title="Image title" />
@@ -174,7 +162,7 @@ const PostListContent = (props) => {
                     </CardContent>
                   </CardActionArea>
                 </Card>
-                
+
                 </Link>
 
               </Grid>
@@ -188,7 +176,7 @@ const PostListContent = (props) => {
           </IconButton>
         </form>
       </main>
-      
+
       <Link to ="/writePost" fullWidth>
         <Button fullWidth>
             글 작성하기
