@@ -36,7 +36,7 @@ const EmptyMapbox = () => {
     <div className="Mapbox">
         <div>
             <Container maxWidth={false}>
-                <Typography component="h1" variant="h5" align="left" color="textPrimary">
+                <Typography component="h1" variant="h5" align="center" color="textPrimary">
                 SNU - Traveler: Final Project For SNU-Web Programming Course
                 </Typography>
             </Container>
