@@ -65,7 +65,7 @@ const ViewPost = (props) => {
 
 	useEffect(() => {
 
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
+		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
 			setCommentArray(commentArray=>[]);
 			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
 		});
@@ -83,15 +83,15 @@ const ViewPost = (props) => {
 
 	  }, []);
 
-  const addComment = (e) =>{
+  	const addComment = (e) =>{
 		e.preventDefault();
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
+		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
 		document.getElementById('comment-form').reset();
 	}
 
   const like = () => {
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).on("value", function(childSnap){
-			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
+		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
       console.log(childSnap.val().like);
 		})
 
@@ -122,7 +122,7 @@ const ViewPost = (props) => {
   						title = {post.title}
   						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
-					<img src="imageLink" height="450px" width="800px"/> 
+					<img src="imageLink" height="450px" width="800px" align="center" style={{display:"block", margin: "0 auto"}}/> 
   					<CardContent align = 'right'>
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
