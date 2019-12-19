@@ -33,11 +33,11 @@ const WritePost = (props) =>{
   const sendPost = () => {
 
     //save data to realtime database for post DB
-    const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
+    const newPostKey = firebase.database().ref().child('postlist').child(`${country}`).push().key;
 
     const updates_postDB = {};
 
-    updates_postDB['/postlist/seoul/' + newPostKey] = {
+    updates_postDB[`/postlist/${country}/` + newPostKey] = {
       title : `${title}`,
       text :`${text}`,
       key :`${newPostKey}`,
@@ -51,7 +51,7 @@ const WritePost = (props) =>{
 
     //save data to realtime database for User DB
     const updates_userDB = {};
-    updates_userDB[`/users/${props.user.uid}/posts/` + newPostKey] = {
+    updates_userDB[`/users/${user.uid}/posts/` + newPostKey] = {
       title : `${title}`,
       text :`${text}`,
       key :`${newPostKey}`,
