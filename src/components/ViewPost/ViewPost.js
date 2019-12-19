@@ -106,12 +106,12 @@ const ViewPost = (props) => {
 	}
 
   const follow = () => {
-		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
+		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ [`${post.userid}`]: `${post.useremail}`});
+		console.log(`${userUid}`);
+		console.log(`${post.useremail}`);
+		console.log('1');
 	}
 
-	useEffect(() => {
-		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
-	})
 
 	/*const deletePost = () => {
 		if(isDeleted!=='1'){
