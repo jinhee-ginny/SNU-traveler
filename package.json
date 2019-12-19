@@ -53,7 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://snu-traveler.surge.sh",
+  "homepage": "https://snutraveler.surge.sh",
   "devDependencies": {
     "gh-pages": "^2.1.1"
   }

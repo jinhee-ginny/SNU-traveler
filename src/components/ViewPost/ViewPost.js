@@ -59,7 +59,7 @@ const ViewPost = (props) => {
   const [replyList, setReplyLIst] = useState('');
   const [commentArray, setCommentArray] = useState([]);
 
-	
+
 
 	const addReply = (e) => {
 			e.preventdefault();
@@ -75,7 +75,7 @@ const ViewPost = (props) => {
 				Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
 			});
 	  }, []);
-	
+
 	  //image upload from database
 	useEffect(() => {
 		const storageRef = firebase.storage().ref();
@@ -106,12 +106,8 @@ const ViewPost = (props) => {
 	}
 
   const follow = () => {
-		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
+		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ [`${post.userid}`]: `${post.useremail}`});
 	}
-
-	useEffect(() => {
-		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
-	})
 
 	/*const deletePost = () => {
 		if(isDeleted!=='1'){
@@ -146,7 +142,7 @@ const ViewPost = (props) => {
   						title = {post.title}
   						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
-					<img src="imageLink" height="450px" width="800px" align="center" style={{display:"block", margin: "0 auto"}}/> 
+					<img src="imageLink" height="450px" width="800px" align="center" style={{display:"block", margin: "0 auto"}}/>
   					<CardContent align = 'right'>
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
