@@ -41,6 +41,7 @@ const styles = (theme) => ({
 });
 
 const PostListContent = (props) => {
+
   const { classes } = props;
   const { country } = props;
   const { user } = props;
@@ -51,7 +52,7 @@ const PostListContent = (props) => {
   const onSort = (e, standard = 'title') => {
     e.preventDefault();
     const sortResult = []
-    const query = firebase.database().ref('postlist/seoul/');
+    const query = firebase.database().ref(`postlist/${country}/`);
     query.orderByChild(standard)
       .once('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -71,7 +72,7 @@ const PostListContent = (props) => {
   useEffect(() => {
     setPostList([]);
 
-    const query = firebase.database().ref("postlist/seoul/");
+    const query = firebase.database().ref(`postlist/${country}/`);
     query.once("value")
       .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -115,12 +116,13 @@ const PostListContent = (props) => {
           </IconButton>
         </form>
       </main>
-
-      <Link to="/writePost" fullwidth="true">
+      
+      <Link to={{pathname: "/writePost/", state:{country : country} }} fullwidth="true">
         <Button fullwidth="true">
             글 작성하기
         </Button>
       </Link>
+
 
     </React.Fragment>
   )
