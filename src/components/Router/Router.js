@@ -22,9 +22,9 @@ class Router extends Component {
       <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
         <main>
           <Switch>
-            <Route path="/" exact>
-              <MapContent user={user}/>
-            </Route>
+            <Route path="/" exact render={() => (
+              <MapContent country="Korea" user={user} />
+            )} />
 
             <Route path="/posts/Korea" exact render={() => (
               <PostListContent country="Korea" user={user} />
@@ -39,9 +39,7 @@ class Router extends Component {
               <PostListContent country="France" user={user} />
             )} />
 
-            <Route path="/writePost" exact render={() => (
-              <WritePost user={user}/>
-            )} />
+            <Route path="/writePost" exact component={WritePost} />
 
             <Route path="/viewpost" exact component={ViewPost} />
 

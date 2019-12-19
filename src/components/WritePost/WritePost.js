@@ -27,8 +27,8 @@ const WritePost = (props) =>{
   const [text, setText] = useState(null);
   const [newKey, setNewKey] = useState('');
   const [newFile, setNewFile] = useState(null);
-  const { user } = props;
-  console.log(user)
+  const { user } = props.location.state;
+  const { country } = props.location.state;
 
   const sendPost = () => {
 
@@ -55,7 +55,7 @@ const WritePost = (props) =>{
       title : `${title}`,
       text :`${text}`,
       key :`${newPostKey}`,
-      userid : `${props.user.uid}`,
+      userid : `${user.uid}`,
       date : moment().valueOf(),
       like : 0,
       comment : null,
@@ -114,12 +114,12 @@ const WritePost = (props) =>{
             </Grid>
           </Grid>
         </form>
-        <Link to ="/mapcontent">
+        <Link to ="/">
           <Button fullWidth onClick={()=>sendPost()}>
             글작성하기
           </Button>
         </Link>
-        <Link to ="/mapcontent">
+        <Link to ="/">
           <Button fullWidth>
             뒤로가기
           </Button>

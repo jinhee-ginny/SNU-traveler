@@ -115,9 +115,17 @@ const PostListContent = (props) => {
           </IconButton>
         </form>
       </main>
-
-      <Link to="/writePost" fullwidth="true">
-        <Button fullwidth="true">
+      <Link to={{
+        pathname: "/writePost/",
+        state: {
+          country: country,
+          user: {
+            uid: user.uid,
+            email: user.email,
+          },
+        }
+      }}>
+        <Button>
             글 작성하기
         </Button>
       </Link>
