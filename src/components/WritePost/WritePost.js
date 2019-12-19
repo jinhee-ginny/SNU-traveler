@@ -114,12 +114,12 @@ const WritePost = (props) =>{
             </Grid>
           </Grid>
         </form>
-        <Link to ="/">
+        <Link to ={`/posts/${country}/`}>
           <Button fullWidth onClick={()=>sendPost()}>
             글작성하기
           </Button>
         </Link>
-        <Link to ="/">
+        <Link to = {`/posts/${country}/`} >
           <Button fullWidth>
             뒤로가기
           </Button>
