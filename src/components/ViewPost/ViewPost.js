@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
-
+import { Link } from 'react-router-dom';
 import renderHTML from 'react-render-html';
 import { IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
 import { makeStyles, withStyles } from '@material-ui/styles';
@@ -64,11 +64,12 @@ const ViewPost = (props) => {
 	}
 
 	useEffect(() => {
-
-		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
-			setCommentArray(commentArray=>[]);
-			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
-		});
+		if(firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`)){
+			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
+				setCommentArray(commentArray=>[]);
+				Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
+			});
+		}
 	  }, []);
 	
 	  //image upload from database
@@ -108,14 +109,16 @@ const ViewPost = (props) => {
 	})
 
 	const deletePost = () => {
-		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
-			if(childSnap.val().userid===userUid){
-				firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).remove();
-			}else{
-				alert("You don't have authority")
-			}
-		})
-		
+		if(firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`)){
+			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
+				if(childSnap.val().userid===userUid){
+					firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).remove();
+					firebase.database().ref().child(`users`).child(`${userUid}`).child('posts').child(`${post.key}`).remove();
+				}else{
+					alert("You don't have authority")
+				}
+			})
+		}
 	}
 
 	return(
@@ -138,7 +141,9 @@ const ViewPost = (props) => {
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
   							<Button onClick={()=>follow()}>Follow</Button>
-							<Button onClick={()=>deletePost()}>Delete</Button>
+							<Link to={{pathname: `/posts/${country}`}}>
+								<Button onClick={()=>deletePost()}>Delete</Button>
+							</Link>
 						</ButtonGroup>
   					</CardContent>
   					<Divider light/>
