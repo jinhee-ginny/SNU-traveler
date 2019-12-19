@@ -92,7 +92,7 @@ const ViewPost = (props) => {
   const like = () => {
 		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
 			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
-      console.log(childSnap.val().like);
+      		console.log(childSnap.val().like);
 		})
 
 		document.getElementById('like-button').disabled = true;
@@ -106,6 +106,17 @@ const ViewPost = (props) => {
 	useEffect(() => {
 		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
 	})
+
+	const deletePost = () => {
+		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
+			if(childSnap.val().userid===userUid){
+				firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).remove();
+			}else{
+				alert("You don't have authority")
+			}
+		})
+		
+	}
 
 	return(
     <React.Fragment>
@@ -127,7 +138,8 @@ const ViewPost = (props) => {
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
   							<Button onClick={()=>follow()}>Follow</Button>
-  						</ButtonGroup>
+							<Button onClick={()=>deletePost()}>Delete</Button>
+						</ButtonGroup>
   					</CardContent>
   					<Divider light/>
   					<CardContent align = 'left'>
