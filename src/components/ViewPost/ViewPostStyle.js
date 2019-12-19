@@ -118,11 +118,12 @@ const ShowPost = (props) => {
 	const Follow = () => {
 		//e.preventdefault();
 		firebase.database().ref().child(`users`).child(`${props.user.uid}`).child(`follows`).update({ email: `${emailData}`});
+		console.log(`${emailData}`);
 	}
 
-	useEffect(() => {
+	/*useEffect(() => {
 		firebase.database().ref().child(`users`).child(`${props.user.uid}`).child(`follows`).update({ email: `${emailData}`});
-	})
+	})*/
 
 	return(
 		<React.Fragment>
