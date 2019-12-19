@@ -70,10 +70,6 @@ const Mapbox = () => {
           setViewport(viewport);
         }}
       >
-          
-        <div className="navi-control">
-          <NavigationControl/>
-        </div>
         {
           cityList.map((city, i) => (
           <Marker
