@@ -23,7 +23,7 @@ class Router extends Component {
         <main>
           <Switch>
             <Route path="/" exact>
-              <HomeContent user={user} />
+              <MapContent user={user}/>
             </Route>
 
             <Route path="/posts/Korea" exact render={() => (
@@ -44,10 +44,6 @@ class Router extends Component {
             )} />
 
             <Route path="/viewpost" exact component={ViewPost} />
-
-            <Route path = "/mapcontent" render={() => (
-              <MapContent user={user}/>
-            )} />
 
             <Route>
               <NotFoundContent />
