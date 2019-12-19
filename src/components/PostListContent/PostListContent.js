@@ -88,7 +88,7 @@ const PostListContent = (props) => {
       <main>
         <div className={classes.postHeader}>
           <Container>
-            <Typography component="h1" variant="h5" align="left" color="textPrimary">
+            <Typography component="h1" variant="h5" align="center" color="textPrimary">
               {country} 여행 게시판
             </Typography>
           </Container>
