@@ -110,7 +110,7 @@ class Bar extends Component {
       <AppBar color="primary" position="static">
         <Toolbar variant="regular">
           <Box display="flex" flexGrow={1}>
-            <Typography color="inherit" variant="h6">{process.env.REACT_APP_TITLE}</Typography>
+            <Button size="large" color="inherit" variant="text" href = "/">{process.env.REACT_APP_TITLE}</Button>
           </Box>
 
           {user &&
