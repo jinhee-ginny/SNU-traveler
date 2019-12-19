@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -11,16 +7,14 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import ViewPost from '../ViewPost/ViewPostStyle'
 import SinglePost from '../SinglePost'
-import EmptyState from '../EmptyState';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
-import { Button } from '@material-ui/core';
+import { Button, ButtonGroup } from '@material-ui/core';
 
 
 firebase.analytics();
@@ -64,7 +58,7 @@ const PostListContent = (props) => {
           sortResult.push(childSnapshot.val());
       })
       setChangedPostList(sortResult.reverse());
-    });
+      });
   }
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
@@ -98,19 +92,19 @@ const PostListContent = (props) => {
             </Typography>
           </Container>
         </div>
-        <Container>
+        <ButtonGroup>
           <Button variant="outlined" onClick={(e)=> onSort(e, 'title')}>제목순</Button>
           <Button variant="outlined" onClick={(e)=> onSort(e, 'date')}>최신순</Button>
           <Button variant="outlined" onClick={(e)=> onSort(e, 'like')}>추천순</Button>
-        </Container>
+        </ButtonGroup>
         <Container className={classes.cardGrid}>
           <Grid container spacing={4}>
             {changedPostList ?
               changedPostList.map(post => (
-                <SinglePost key={post.key} post={post} country={country} user={user} />
+                <SinglePost key={Math.random()} post={post} country={country} user={user} />
               ))
               : postList.map(post => (
-                <SinglePost key={post.key} post={post} country={country} user={user} />
+                <SinglePost key={Math.random()} post={post} country={country} user={user} />
             ))}
           </Grid>
         </Container>

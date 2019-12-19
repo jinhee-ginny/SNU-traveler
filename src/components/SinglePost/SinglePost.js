@@ -38,16 +38,17 @@ const SinglePost = (props) => {
   const { post } = props;
   const { user } = props;
   const { country } = props;
+  const [imageLink, setImageLink] = useState('');
 
   useEffect(() => {
 		const storageRef = firebase.storage().ref();
-		storageRef.child(`${post.key}.jpg`).getDownloadURL().then(function(url) {
-			const imageLink = url;
-			document.querySelector('img').src = imageLink;
-		}).catch(function(error) {
-
-		});
-
+    storageRef.child(`${post.key}.jpg`).getDownloadURL()
+      .then(function(url) {
+        // document.querySelector('img').src = imageLink;
+        setImageLink(url)
+    }).catch(function(error) {
+      console.error(error)
+    });
 	  }, []);
 
   return (
@@ -62,7 +63,7 @@ const SinglePost = (props) => {
       }}>
         <Card className={classes.postCard}>
           <CardActionArea>
-            <img src="imageLink" height="225px" width="400px"/>
+            <img src={imageLink} height="225px" width="400px"/>
             <CardContent className={classes.cardContent}>
               <Typography component="h5" variant="overline">
                 {post.title}

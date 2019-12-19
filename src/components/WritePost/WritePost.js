@@ -27,10 +27,11 @@ const WritePost = (props) =>{
   const [text, setText] = useState(null);
   const [newKey, setNewKey] = useState('');
   const [newFile, setNewFile] = useState(null);
-
+  const { user } = props;
+  console.log(user)
 
   const sendPost = () => {
-    
+
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child('seoul').push().key;
 
@@ -40,11 +41,11 @@ const WritePost = (props) =>{
       title : `${title}`,
       text :`${text}`,
       key :`${newPostKey}`,
-      userid : `${props.user.uid}`,
+      userid : `${user.uid}`,
       date : moment().valueOf(),
       like : 0,
       comment : {0: ' '},
-      useremail : `${props.user.email}`
+      useremail : `${user.email}`
 
     }
 
@@ -58,7 +59,7 @@ const WritePost = (props) =>{
       date : moment().valueOf(),
       like : 0,
       comment : null,
-      useremail : `${props.user.email}`
+      useremail : `${user.email}`
     }
     setNewKey(newPostKey);
     let submitText = document.getElementById("post-form");
@@ -78,7 +79,7 @@ const WritePost = (props) =>{
       //uploadImage();
   useEffect(() => {
 
-    document.getElementById("input").addEventListener('change', function(evt) {      
+    document.getElementById("input").addEventListener('change', function(evt) {
       setNewFile(evt.target.files[0])
     })
 	}, []);
