@@ -7,8 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
-import SinglePost from '../SinglePost';
-import AddIcon from '@material-ui/icons/Add';
+import SinglePost from '../SinglePost'
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -39,10 +38,6 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
-  addNewPost: {
-    marginLeft: "auto",
-    marginRight: -12
-  }
 });
 
 const PostListContent = (props) => {
@@ -92,7 +87,7 @@ const PostListContent = (props) => {
     <React.Fragment>
       <main>
         <div className={classes.postHeader}>
-          <Container >
+          <Container>
             <Typography component="h1" variant="h5" align="left" color="textPrimary">
               {country} 여행 게시판
             </Typography>
@@ -130,9 +125,9 @@ const PostListContent = (props) => {
             email: user.email,
           },
         }
-      }} underline='none' >
-        <Button variant = "contained" color="primary" endIcon = {<AddIcon/>}>
-          New
+      }}>
+        <Button>
+            글 작성하기
         </Button>
       </Link>
 

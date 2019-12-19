@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import renderHTML from 'react-render-html';
-import { IconButton, Link, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
+import { IconButton, TextField, CardHeader, CardMedia, CardContent, CardActions, Avatar, Container, Paper, Divider, Textfield, Input, FormControl, Button, ButtonGroup, InputLabel, Typography, Grid, Card, OutlinedInput } from '@material-ui/core/';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import clsx from 'clsx';
@@ -125,9 +125,9 @@ const ViewPost = (props) => {
     <React.Fragment>
 			<main style={{align: 'center'}}>
   			<Container maxWidth={false} className={classes.postHeader}>
-  				<Link to = "/" component="h1" variant="h5" align="left" color="textPrimary">
+  				<Typography component="h1" variant="h5" align="left" color="textPrimary">
   					{country} 여행 게시판
-  				</Link>
+  				</Typography>
   			</Container>
   			<Container className={classes.card}>
   				<Card>
