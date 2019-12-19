@@ -48,6 +48,7 @@ class Reply extends Component {
 }
 
 const ViewPost = (props) => {
+  const [isDeleted, setIsDeleted] = useState('');
   const { classes } = props;
   const userUid = props.location.state.user;
   const { post } = props.location.state;
@@ -64,7 +65,7 @@ const ViewPost = (props) => {
 	}
 
 	useEffect(() => {
-		if(firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`)){
+		if(isDeleted!=='1'){
 			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
 				setCommentArray(commentArray=>[]);
 				Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
@@ -109,11 +110,12 @@ const ViewPost = (props) => {
 	})
 
 	const deletePost = () => {
-		if(firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`)){
+		if(isDeleted!=='1'){
 			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
 				if(childSnap.val().userid===userUid){
 					firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).remove();
 					firebase.database().ref().child(`users`).child(`${userUid}`).child('posts').child(`${post.key}`).remove();
+					setIsDeleted(1);
 				}else{
 					alert("You don't have authority")
 				}

@@ -32,6 +32,11 @@ const WritePost = (props) =>{
 
   const sendPost = () => {
 
+    if(!newFile){
+      alert('사진을 올려주세요')
+      return;
+    }
+
     //save data to realtime database for post DB
     const newPostKey = firebase.database().ref().child('postlist').child(`${country}`).push().key;
 
@@ -67,10 +72,12 @@ const WritePost = (props) =>{
 
     //image upload
     const storageRef = firebase.storage().ref();
-    const mountainsRef = storageRef.child(`${newPostKey}.jpg`);
-    mountainsRef.put(newFile).then(function(snapshot) {
-    console.log('Uploaded a blob or file!');
-    });
+    const imageRef = storageRef.child(`${newPostKey}.jpg`);
+    if(newFile){
+      imageRef.put(newFile).then(function(snapshot) {
+        console.log('Uploaded a file!');
+        });    
+    }
 
 
     return firebase.database().ref().update(updates_postDB)&&firebase.database().ref().update(updates_userDB);
