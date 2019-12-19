@@ -122,7 +122,7 @@ const ViewPost = (props) => {
   						title = {post.title}
   						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
-					<img src="imageLink" height="450px" width="800px"/> 
+					<img src="imageLink" height="450px" width="800px" align="center" style={{display:"block", margin: "0 auto"}}/> 
   					<CardContent align = 'right'>
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
