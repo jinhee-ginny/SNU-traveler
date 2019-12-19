@@ -57,7 +57,7 @@ const PostListContent = (props) => {
         snapshot.forEach(function(childSnapshot) {
           sortResult.push(childSnapshot.val());
       })
-      setChangedPostList(sortResult.reverse());
+      (standard === 'title') ? setChangedPostList(sortResult) : setChangedPostList(sortResult.reverse());
       });
   }
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
