@@ -136,7 +136,7 @@ const ViewPost = (props) => {
 			<main style={{align: 'center'}}>
   			<Container maxWidth={false} className={classes.postHeader}>
   				<Typography component="h1" variant="h5" align="center" color="textPrimary">
-						{country} 여행 게시판
+						<Button href = {`/posts/${country}`} size="large" varaint = "text" >{country} 여행 게시판</Button>
   				</Typography>
   			</Container>
   			<Container className={classes.card}>

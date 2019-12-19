@@ -20,8 +20,8 @@ const getPost = () => {
 }
 
 const cityList = [
-  { name: 'America', location: [40.7128, -74.0060], picture: "https://image.freepik.com/free-photo/new-york-city-skyline_119101-67.jpg"},
-  { name: 'China', location: [39.9042, 116.4074], picture: "https://image.freepik.com/free-photo/water-famous-architecture-finance-shanghai-tower_1417-1120.jpg" },
+  { name: 'America', location: [37.0902, -95.7129], picture: "https://image.freepik.com/free-photo/new-york-city-skyline_119101-67.jpg"},
+  { name: 'China', location: [35.8617, 104.1954], picture: "https://image.freepik.com/free-photo/water-famous-architecture-finance-shanghai-tower_1417-1120.jpg" },
   { name: 'France', location: [48.8566, 2.3522], picture: "https://image.freepik.com/free-photo/paris-eiffel-tower-skyline-aerial-france_79295-14918.jpg"},
   { name: 'Korea', location: [37.5665, 126.9780], picture: "https://image.freepik.com/free-photo/sunrise-bukchon-hanok-village-seoul_40171-5.jpg" }
 ]; //지도 좌표는 이렇게 찍어봤는데 큰 지도에서는 오차가 좀 있더라고요. 어찌하면 좋을까요.
