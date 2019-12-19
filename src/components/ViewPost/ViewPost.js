@@ -128,8 +128,8 @@ const ViewPost = (props) => {
     <React.Fragment>
 			<main style={{align: 'center'}}>
   			<Container maxWidth={false} className={classes.postHeader}>
-  				<Typography component="h1" variant="h5" align="left" color="textPrimary">
-  					{country} 여행 게시판
+  				<Typography component="h1" variant="h5" align="center" color="textPrimary">
+						{country} 여행 게시판
   				</Typography>
   			</Container>
   			<Container className={classes.card}>
