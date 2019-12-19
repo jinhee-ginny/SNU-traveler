@@ -22,6 +22,8 @@ class FollowingUsersDialog extends Component {
     const { user } = this.props;
     const followArray =[];
     
+    firebase.database().ref().child(`users`).child(`${user.uid}`).child('follows').update({ email: ` `})
+
     firebase.database().ref().child(`users`).child(`${user.uid}`).child('follows').on('value', function(snapshot) {
       Object.values(snapshot.val()).map(follow => followArray.push(follow));
     });
