@@ -52,36 +52,46 @@ const ViewPost = (props) => {
   const userUid = props.location.state.user;
   const { post } = props.location.state;
   const { country } = props.location.state;
-  const [newComment, setNewComment] = useState('');
-  const [commentList, setCommentList] = useState([]);
-  const [imageLink, setImageLink] = useState('');
+  const [newReply, setNewReply] = useState('');
+  const [replyList, setReplyLIst] = useState('');
+  const [commentArray, setCommentArray] = useState([]);
 
-	//image upload from database
+	const addReply = (e) => {
+			e.preventdefault();
+			if(!newReply) {
+					return alert ("Type your reply!");
+			}
+	}
+
+	useEffect(() => {
+
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
+			setCommentArray(commentArray=>[]);
+			Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
+		});
+	  }, []);
+	
+	  //image upload from database
 	useEffect(() => {
 		const storageRef = firebase.storage().ref();
-    storageRef.child(`${post.key}.jpg`).getDownloadURL()
-      .then(function(url) {
-  			// document.querySelector('img').src = imageLink;
-        setImageLink(url)
+		storageRef.child(`${post.key}.jpg`).getDownloadURL().then(function(url) {
+			const imageLink = url;
+			document.querySelector('img').src = imageLink;
 		}).catch(function(error) {
-      console.error(error)
+
 		});
 
 	  }, []);
 
   const addComment = (e) =>{
 		e.preventDefault();
-    if(!newComment) {
-        return alert ("Type your reply!");
-    }
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').update({ [moment().valueOf()] : `${newComment}` });
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment').update({ [Date(Date.now()).toString()] : `${newReply}` });
 		document.getElementById('comment-form').reset();
 	}
 
   const like = () => {
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`)
-      .on("value", function(childSnap){
-			     firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
+		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
       console.log(childSnap.val().like);
 		})
 
@@ -96,17 +106,6 @@ const ViewPost = (props) => {
 	useEffect(() => {
 		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
 	})
-
-  useEffect(() => {
-    setCommentList([]);
-		firebase.database().ref().child(`postlist`).child(`seoul`).child(`${post.key}`).child('comment')
-      .on('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          commentList.push(childSnapshot.val());
-      })
-      setCommentList(commentList);
-      });
-	  }, []);
 
 	return(
     <React.Fragment>
@@ -123,14 +122,14 @@ const ViewPost = (props) => {
   						title = {post.title}
   						subheader={`작성자: ${post.useremail} | 작성시간: ${moment.unix(post.date / 1000).format('YYYY년 MM월 DD일 HH:mm')}`}
   					/>
-          <Divider light/>
-					<img src={imageLink} height="450px" width="800px" />
+					<img src="imageLink" height="450px" width="800px"/> 
   					<CardContent align = 'right'>
   						<ButtonGroup >
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
   							<Button onClick={()=>follow()}>Follow</Button>
   						</ButtonGroup>
   					</CardContent>
+  					<Divider light/>
   					<CardContent align = 'left'>
   							<pre>{post.text}</pre>
   					</CardContent>
@@ -140,18 +139,18 @@ const ViewPost = (props) => {
   			<Container className={classes.reply}>
   				<h4>댓글</h4>
   				<Paper id="comment-field">
-					{commentList !== [] &&
-  					commentList.map(comment=>(
-  						<div><span>{comment}</span></div>
-  						)
-  					 )
-  					}
+					{
+					commentArray.map(comment=>(
+						<div><span>{comment}</span></div>
+						)
+					 )
+					}
   				</Paper>
   				<Divider/>
   			</Container>
   			<Container>
   					<form id="comment-form" align = 'center'>
-  							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewComment(e.target.value)} style={{width:'85%'}}/>
+  							<p><TextField id="commentTextfield" type = "text" placeholder = "댓글을 남겨주세요." onChange={(e) => setNewReply(e.target.value)} style={{width:'85%'}}/>
   							{'   '}
   							<Button onClick={(e)=>addComment(e)} type = "submit" variant="contained" color="primary" endIcon={<AddCommentIcon/>}>Add</Button>
   							</p>
