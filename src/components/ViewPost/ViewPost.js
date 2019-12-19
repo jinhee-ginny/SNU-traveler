@@ -92,9 +92,10 @@ const ViewPost = (props) => {
 	}
 
   const like = () => {
-		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
-			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).update({ like: childSnap.val().like =+ 1});
-      		console.log(childSnap.val().like);
+		firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).once("value", function(childSnap){
+			const updatedLike=childSnap.val().like + 1;
+			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).update({ like: updatedLike});
+			firebase.database().ref().child(`users`).child(`${childSnap.val().userid}`).child('posts').child(`${post.key}`).update({ like: updatedLike});
 		})
 
 		document.getElementById('like-button').disabled = true;
