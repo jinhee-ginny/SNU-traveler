@@ -44,11 +44,13 @@ const styles = (theme) => ({
     },
 })
 
+//let isd = 0;
+
 class Reply extends Component {
 }
 
 const ViewPost = (props) => {
-  const [isDeleted, setIsDeleted] = useState('');
+  //const [isDeleted, setIsDeleted] = useState('');
   const { classes } = props;
   const userUid = props.location.state.user;
   const { post } = props.location.state;
@@ -56,6 +58,8 @@ const ViewPost = (props) => {
   const [newReply, setNewReply] = useState('');
   const [replyList, setReplyLIst] = useState('');
   const [commentArray, setCommentArray] = useState([]);
+
+	
 
 	const addReply = (e) => {
 			e.preventdefault();
@@ -65,12 +69,11 @@ const ViewPost = (props) => {
 	}
 
 	useEffect(() => {
-		if(isDeleted!=='1'){
+
 			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).child('comment').on('value', function(snapshot) {
 				setCommentArray(commentArray=>[]);
 				Object.values(snapshot.val()).map(comment => (setCommentArray(commentArray => [...commentArray, comment])));
 			});
-		}
 	  }, []);
 	
 	  //image upload from database
@@ -110,19 +113,23 @@ const ViewPost = (props) => {
 		firebase.database().ref().child(`users`).child(`${userUid}`).child(`follows`).update({ email: `${post.useremail}`});
 	})
 
-	const deletePost = () => {
+	/*const deletePost = () => {
 		if(isDeleted!=='1'){
-			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).on("value", function(childSnap){
+			firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).once("value", function(childSnap){
 				if(childSnap.val().userid===userUid){
+					setIsDeleted('1');
+					isd=1;
+					alert(isd);
 					firebase.database().ref().child(`postlist`).child(`${country}`).child(`${post.key}`).remove();
 					firebase.database().ref().child(`users`).child(`${userUid}`).child('posts').child(`${post.key}`).remove();
-					setIsDeleted(1);
+					return;
 				}else{
 					alert("You don't have authority")
 				}
 			})
 		}
-	}
+
+	}*/
 
 	return(
     <React.Fragment>
@@ -145,7 +152,7 @@ const ViewPost = (props) => {
   							<Button onClick={()=>like()} id="like-button" >Like</Button>
   							<Button onClick={()=>follow()}>Follow</Button>
 							<Link to={{pathname: `/posts/${country}`}}>
-								<Button onClick={()=>deletePost()}>Delete</Button>
+							{/*<Button onClick={()=>deletePost()}>Delete</Button>*/}
 							</Link>
 						</ButtonGroup>
   					</CardContent>
