@@ -44,23 +44,25 @@ const PostListContent = (props) => {
 
   const { classes } = props;
   const { country } = props;
+  console.log(country)
   const { user } = props;
   const [postList, setPostList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [changedPostList, setChangedPostList] = useState('');
 
   const onSort = (e, standard = 'title') => {
-    e.preventDefault();
-    const sortResult = []
-    const query = firebase.database().ref(`postlist/${country}/`);
-    query.orderByChild(standard)
-      .once('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          sortResult.push(childSnapshot.val());
-      })
-      (standard === 'title') ? setChangedPostList(sortResult) : setChangedPostList(sortResult.reverse());
-      });
-  }
+     e.preventDefault();
+     const sortResult = []
+     const queryUrl = `postlist/${country}`
+     const query = firebase.database().ref(queryUrl);
+     query.orderByChild(standard)
+       .once('value', function(snapshot) {
+         snapshot.forEach(function(childSnapshot) {
+           sortResult.push(childSnapshot.val());
+       })
+       setChangedPostList(sortResult.reverse());
+     });
+   }
   const onChangeSearchValue = (e) => setSearchValue(e.target.value);
   const onSearch = (e) => {
     e.preventDefault();
