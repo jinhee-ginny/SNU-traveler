@@ -24,9 +24,9 @@ class FollowingUsersDialog extends Component {
     
     //firebase.database().ref().child(`users`).child(`${user.uid}`).child('follows').update({ email: ` `})
 
-    firebase.database().ref().child(`users`).child(`${user.uid}`).child('follows').on('value', function(snapshot) {
-      Object.values(snapshot.val()).map(follow => followArray.push(follow));
-    });
+    // firebase.database().ref().child(`users`).child(`${user.uid}`).child('follows').on('value', function(snapshot) {
+    //   Object.values(snapshot.val()).map(follow => followArray.push(follow));
+    // });
 
 
     return (

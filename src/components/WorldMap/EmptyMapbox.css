@@ -1,0 +1,51 @@
+.Mapbox{
+    background-color: white;
+}
+
+
+
+
+.logos{
+    margin-left:65%
+}
+
+
+.logo1{
+    width: 100px;
+    height: 100px;
+}
+
+
+
+.logo2{
+    height: 50px;
+    width: auto;
+    /* position: relative;
+    bottom: 3px; */
+}
+
+.mainpage{
+    margin-left: 25%;
+    margin-top: 5%;
+}
+
+.level1{
+    height: 200px;
+    width: auto;
+}
+.level2{
+    height: 200px;
+    width: auto;
+}
+.level3{
+    height: 200px;
+    width: auto;
+}
+.level4{
+    height: 200px;
+    width: auto;
+}
+.level5{
+    height: 200px;
+    width: auto;
+}

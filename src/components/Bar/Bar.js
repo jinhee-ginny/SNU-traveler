@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +17,12 @@ import FaceIcon from '@material-ui/icons/Face';
 import PersonIcon from '@material-ui/icons/Person';
 
 import authentication from '../../services/authentication';
+
+// const onMyPage = () => {
+//   return(
+//     <Redirect to="/mypage"/>
+//   );
+// }
 
 class Bar extends Component {
   constructor(props) {
@@ -93,6 +99,8 @@ class Bar extends Component {
     this.props.onSignOutClick();
   };
 
+
+
   render() {
     // Properties
     const { performingAction, user } = this.props;
@@ -110,11 +118,19 @@ class Bar extends Component {
       <AppBar color="primary" position="static">
         <Toolbar variant="regular">
           <Box display="flex" flexGrow={1}>
-            <Button size="large" color="inherit" variant="text" href = "/">{process.env.REACT_APP_TITLE}</Button>
+            <Button className="logo2" size="large" color="inherit" variant="text" href = "/">Human-Library</Button>
+            {/* <Button size="large" color="inherit" variant="text" href = "/">{process.env.REACT_APP_TITLE}</Button> */}
           </Box>
 
           {user &&
             <>
+
+
+
+              <Button href = "/mypage">
+                Mypage
+              </Button>
+
               <IconButton aria-label="followingUsers" color="inherit" disabled={performingAction} onClick={onFollowingUsersClick}>
                 <FaceIcon/>
               </IconButton>

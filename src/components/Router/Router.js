@@ -12,6 +12,11 @@ import ViewPost from '../ViewPost';
 
 import MapContent from '../WorldMap'
 import WritePost from '../WritePost';
+import MyPage from '../MyPage'
+
+import MyPageEdit from '../MypageEdit'
+
+import LevelListContent from '../LevelListContent'
 
 class Router extends Component {
   render() {
@@ -39,9 +44,47 @@ class Router extends Component {
               <PostListContent country="France" user={user} />
             )} />
 
-            <Route path="/writePost" exact component={WritePost} />
+
+
+
+            <Route path="/posts/level1" exact render={() => (
+              <LevelListContent level="level1" user={user} />
+            )} />
+
+            <Route path="/posts/level2" exact render={() => (
+              <LevelListContent level="level2" user={user} />
+            )} />
+
+            <Route path="/posts/level3" exact render={() => (
+              <LevelListContent level="level3" user={user} />
+            )} />
+
+            <Route path="/posts/level4" exact render={() => (
+              <LevelListContent level="level4" user={user} />
+            )} />
+
+            <Route path="/posts/level5" exact render={() => (
+              <LevelListContent level="level5" user={user} />
+            )} />
+
+
+            <Route path="/mypage" exact render={() => (
+              <MyPage user={user} />
+            )} />
+
+            <Route path="/mypageedit" exact render={() => (
+              <MyPageEdit user={user} />
+            )} />
+
+            <Route path="/writepost" exact render={() => (
+              <WritePost user={user} />
+            )} />            
+
+            {/* <Route path="/writePost" exact component={WritePost} /> */}
 
             <Route path="/viewpost" exact component={ViewPost} />
+
+            {/* <Route path="/mypage" exact component={MyPage}/> */}
 
             <Route>
               <NotFoundContent />
